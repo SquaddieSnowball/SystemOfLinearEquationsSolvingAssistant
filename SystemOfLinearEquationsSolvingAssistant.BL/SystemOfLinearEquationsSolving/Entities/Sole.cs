@@ -1,10 +1,12 @@
 ﻿namespace SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
 
-public sealed class Sole
+public sealed class Sole : ICloneable
 {
     public double[,] A { get; }
 
     public double[] B { get; }
+
+    public int Dimension { get; }
 
     public Sole(double[,] a, double[] b)
     {
@@ -18,8 +20,11 @@ public sealed class Sole
             throw new ArgumentException("Matrix A must be square.", nameof(a));
 
         if (a.GetLength(0) != b.Length)
-            throw new ArgumentException("The dimensions of the matrix A must be equal to the dimension of the vector B.");
+            throw new ArgumentException("The dimension of the matrix A must be equal to the dimension of the vector B.");
 
-        (A, B) = (a, b);
+        (A, B, Dimension) = (a, b, b.Length);
     }
+
+    public object Clone() =>
+        new Sole((double[,])A.Clone(), (double[])B.Clone());
 }
