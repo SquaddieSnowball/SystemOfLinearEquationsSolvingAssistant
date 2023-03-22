@@ -1,3 +1,6 @@
 ﻿namespace SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
 
-public enum SoleSolvingAlgorithmParallel { }
+public enum SoleSolvingAlgorithmParallel
+{
+    GaussianEliminationCyclicMapping
+}
