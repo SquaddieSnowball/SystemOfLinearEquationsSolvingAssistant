@@ -6,6 +6,8 @@ public static class DependenciesContainer
 
     public static IEnumerable<KeyValuePair<Type, Type>> GetAll() => _dependencies;
 
+    public static void Register<T>() => Register<T, T>();
+
     public static void Register<TAbstract, TConcrete>() where TConcrete : TAbstract
     {
         try
