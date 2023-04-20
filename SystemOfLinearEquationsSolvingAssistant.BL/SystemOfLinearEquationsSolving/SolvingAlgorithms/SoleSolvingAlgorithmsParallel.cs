@@ -14,13 +14,14 @@ internal static class SoleSolvingAlgorithmsParallel
 
     private static double[] GaussianEliminationCyclicMapping(Sole sole, int numberOfThreads)
     {
-        static void PerformElimintaions(Sole sole, ref int p, int numberOfThreads, Barrier barrier)
+        static void PerformElimintaions(Sole sole, ref int p, int numberOfThreads,
+            Barrier barrier, CancellationToken cancellationToken)
         {
             int threadNumber = int.Parse(Thread.CurrentThread.Name!);
 
-            barrier.SignalAndWait();
+            barrier.SignalAndWait(CancellationToken.None);
 
-            while (p < sole.Dimension - 1)
+            while ((p < sole.Dimension - 1) && (cancellationToken.IsCancellationRequested is false))
             {
                 for (var r = p + 1; r < sole.Dimension; r++)
                     if ((r % numberOfThreads) == threadNumber)
@@ -34,7 +35,7 @@ internal static class SoleSolvingAlgorithmsParallel
                             sole.B[r] -= sole.B[p] * coefficient;
                         }
 
-                barrier.SignalAndWait();
+                barrier.SignalAndWait(CancellationToken.None);
             }
         }
 
@@ -50,12 +51,14 @@ internal static class SoleSolvingAlgorithmsParallel
         Sole soleClone = (Sole)sole.Clone();
         int p = default;
         Barrier barrier = new(numberOfThreads + 1);
+        CancellationTokenSource cancellationTokenSource = new();
 
         Thread[] threads = new Thread[numberOfThreads];
 
         for (var t = 0; t < numberOfThreads; t++)
         {
-            threads[t] = new Thread(() => PerformElimintaions(soleClone, ref p, numberOfThreads, barrier))
+            threads[t] = new Thread(() =>
+                PerformElimintaions(soleClone, ref p, numberOfThreads, barrier, cancellationTokenSource.Token))
             {
                 Name = t.ToString()
             };
@@ -72,7 +75,15 @@ internal static class SoleSolvingAlgorithmsParallel
                     pivotRow = r;
 
             if (soleClone.A[pivotRow, p] is 0)
+            {
+                cancellationTokenSource.Cancel();
+                barrier.SignalAndWait();
+
+                foreach (Thread thread in threads)
+                    thread.Join();
+
                 return Array.Empty<double>();
+            }
 
             if (pivotRow != p)
             {
