@@ -2,14 +2,14 @@
 
 internal sealed class Dependency
 {
-    internal Type AbstractType { get; }
+    public Type AbstractType { get; }
 
-    internal Type RealType { get; }
+    public Type RealType { get; }
 
-    internal DependencyObjectLifetime DependencyObjectLifetime { get; }
+    public DependencyObjectLifetime DependencyObjectLifetime { get; }
 
-    internal object? DependencyObject { get; set; }
+    public object? DependencyObject { get; set; }
 
-    internal Dependency(Type abstractType, Type realType, DependencyObjectLifetime dependencyObjectLifetime) =>
+    public Dependency(Type abstractType, Type realType, DependencyObjectLifetime dependencyObjectLifetime) =>
         (AbstractType, RealType, DependencyObjectLifetime) = (abstractType, realType, dependencyObjectLifetime);
 }
