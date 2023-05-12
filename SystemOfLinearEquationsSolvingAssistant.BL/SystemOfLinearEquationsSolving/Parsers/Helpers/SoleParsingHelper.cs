@@ -5,13 +5,13 @@ namespace SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolv
 
 internal static class SoleParsingHelper
 {
-    internal static double[,] ParseFromTextA(string text, SoleParsingTemplate parsingTemplate)
+    public static double[,] ParseFromTextA(string text, SoleParsingTemplate parsingTemplate)
     {
         if (text is null)
-            throw new ArgumentNullException(nameof(text), "The text must not be null.");
+            throw new ArgumentNullException(nameof(text), "Text must not be null.");
 
         if (parsingTemplate is null)
-            throw new ArgumentNullException(nameof(parsingTemplate), "The parsing template must not be null.");
+            throw new ArgumentNullException(nameof(parsingTemplate), "Parsing template must not be null.");
 
         string[] rowLines = text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -41,13 +41,13 @@ internal static class SoleParsingHelper
         return a;
     }
 
-    internal static double[] ParseFromTextB(string text, SoleParsingTemplate parsingTemplate)
+    public static double[] ParseFromTextB(string text, SoleParsingTemplate parsingTemplate)
     {
         if (text is null)
-            throw new ArgumentNullException(nameof(text), "The text must not be null.");
+            throw new ArgumentNullException(nameof(text), "Text must not be null.");
 
         if (parsingTemplate is null)
-            throw new ArgumentNullException(nameof(parsingTemplate), "The parsing template must not be null.");
+            throw new ArgumentNullException(nameof(parsingTemplate), "Parsing template must not be null.");
 
         string[] numberLines = text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 

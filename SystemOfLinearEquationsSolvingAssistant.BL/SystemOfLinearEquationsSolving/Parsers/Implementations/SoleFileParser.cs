@@ -6,7 +6,7 @@ namespace SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolv
 
 public sealed class SoleFileParser : ISoleParser
 {
-    public void Initialize(string initializationString) { }
+    void ISoleParser.Initialize(string initializationString) { }
 
     public Sole Parse(string pathA, string pathB, SoleParsingTemplate parsingTemplate)
     {
@@ -17,15 +17,15 @@ public sealed class SoleFileParser : ISoleParser
             throw new ArgumentException("The path to the file with vector B must not be null or empty.", nameof(pathA));
 
         if (parsingTemplate is null)
-            throw new ArgumentNullException(nameof(parsingTemplate), "The parsing template must not be null.");
+            throw new ArgumentNullException(nameof(parsingTemplate), "Parsing template must not be null.");
 
-        string fileA;
-        string fileB;
+        string fileTextA;
+        string fileTextB;
 
         try
         {
-            fileA = File.ReadAllText(pathA);
-            fileB = File.ReadAllText(pathB);
+            fileTextA = File.ReadAllText(pathA);
+            fileTextB = File.ReadAllText(pathB);
         }
         catch
         {
@@ -37,8 +37,24 @@ public sealed class SoleFileParser : ISoleParser
 
         try
         {
-            a = SoleParsingHelper.ParseFromTextA(fileA, parsingTemplate);
-            b = SoleParsingHelper.ParseFromTextB(fileB, parsingTemplate);
+            a = SoleParsingHelper.ParseFromTextA(fileTextA, parsingTemplate);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ArgumentException($"Matrix A: {ex.Message}", ex);
+        }
+        catch
+        {
+            throw;
+        }
+
+        try
+        {
+            b = SoleParsingHelper.ParseFromTextB(fileTextB, parsingTemplate);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ArgumentException($"Vector B: {ex.Message}", ex);
         }
         catch
         {
@@ -68,15 +84,15 @@ public sealed class SoleFileParser : ISoleParser
             throw new ArgumentException("The path to the file with vector B must not be null or empty.", nameof(pathA));
 
         if (parsingTemplate is null)
-            throw new ArgumentNullException(nameof(parsingTemplate), "The parsing template must not be null.");
+            throw new ArgumentNullException(nameof(parsingTemplate), "Parsing template must not be null.");
 
-        string fileA;
-        string fileB;
+        string fileTextA;
+        string fileTextB;
 
         try
         {
-            fileA = await File.ReadAllTextAsync(pathA);
-            fileB = await File.ReadAllTextAsync(pathB);
+            fileTextA = await File.ReadAllTextAsync(pathA);
+            fileTextB = await File.ReadAllTextAsync(pathB);
         }
         catch
         {
@@ -88,8 +104,24 @@ public sealed class SoleFileParser : ISoleParser
 
         try
         {
-            a = await Task.Run(() => SoleParsingHelper.ParseFromTextA(fileA, parsingTemplate));
-            b = await Task.Run(() => SoleParsingHelper.ParseFromTextB(fileB, parsingTemplate));
+            a = await Task.Run(() => SoleParsingHelper.ParseFromTextA(fileTextA, parsingTemplate));
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ArgumentException($"Matrix A: {ex.Message}", ex);
+        }
+        catch
+        {
+            throw;
+        }
+
+        try
+        {
+            b = await Task.Run(() => SoleParsingHelper.ParseFromTextB(fileTextB, parsingTemplate));
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ArgumentException($"Vector B: {ex.Message}", ex);
         }
         catch
         {

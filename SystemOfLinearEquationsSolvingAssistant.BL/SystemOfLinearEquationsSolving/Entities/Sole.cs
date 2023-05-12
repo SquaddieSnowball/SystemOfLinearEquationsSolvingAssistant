@@ -22,9 +22,8 @@ public sealed class Sole : ICloneable
         if (a.GetLength(0) != b.Length)
             throw new ArgumentException("The dimension of the matrix A must be equal to the dimension of the vector B.");
 
-        (A, B, Dimension) = (a, b, b.Length);
+        (A, B, Dimension) = (a, b, a.GetLength(0));
     }
 
-    public object Clone() =>
-        new Sole((double[,])A.Clone(), (double[])B.Clone());
+    public object Clone() => new Sole((double[,])A.Clone(), (double[])B.Clone());
 }

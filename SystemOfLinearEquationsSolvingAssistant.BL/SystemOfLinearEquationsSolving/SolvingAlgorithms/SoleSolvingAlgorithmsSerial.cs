@@ -4,7 +4,7 @@ namespace SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolv
 
 internal static class SoleSolvingAlgorithmsSerial
 {
-    internal static Func<Sole, double[]> GetAlgorithmMethod(SoleSolvingAlgorithmSerial solvingAlgorithm) =>
+    public static Func<Sole, double[]> GetAlgorithmMethod(SoleSolvingAlgorithmSerial solvingAlgorithm) =>
         solvingAlgorithm switch
         {
             SoleSolvingAlgorithmSerial.GaussianElimination => GaussianElimination,
@@ -76,6 +76,6 @@ internal static class SoleSolvingAlgorithmsSerial
     private static void CheckSolvingAlgorithmArguments(Sole sole)
     {
         if (sole is null)
-            throw new ArgumentNullException(nameof(sole), "The system of linear equations must not be null.");
+            throw new ArgumentNullException(nameof(sole), "System of linear equations must not be null.");
     }
 }

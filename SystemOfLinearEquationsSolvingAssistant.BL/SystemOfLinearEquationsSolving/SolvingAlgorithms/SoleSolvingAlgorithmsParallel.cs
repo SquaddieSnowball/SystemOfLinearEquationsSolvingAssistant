@@ -5,7 +5,7 @@ namespace SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolv
 
 internal static class SoleSolvingAlgorithmsParallel
 {
-    internal static Func<Sole, int, double[]> GetAlgorithmMethod(SoleSolvingAlgorithmParallel solvingAlgorithm) =>
+    public static Func<Sole, int, double[]> GetAlgorithmMethod(SoleSolvingAlgorithmParallel solvingAlgorithm) =>
         solvingAlgorithm switch
         {
             SoleSolvingAlgorithmParallel.GaussianEliminationCyclicMapping => GaussianEliminationCyclicMapping,
@@ -123,9 +123,9 @@ internal static class SoleSolvingAlgorithmsParallel
     private static void CheckSolvingAlgorithmArguments(Sole sole, int numberOfThreads)
     {
         if (sole is null)
-            throw new ArgumentNullException(nameof(sole), "The system of linear equations must not be null.");
+            throw new ArgumentNullException(nameof(sole), "System of linear equations must not be null.");
 
         if (numberOfThreads < 2)
-            throw new ArgumentException("The number of threads must be greater than 1.", nameof(numberOfThreads));
+            throw new ArgumentException("Number of threads must be greater than 1.", nameof(numberOfThreads));
     }
 }

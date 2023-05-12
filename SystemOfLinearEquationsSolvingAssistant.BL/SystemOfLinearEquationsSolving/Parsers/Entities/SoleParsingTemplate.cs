@@ -15,10 +15,10 @@ public sealed class SoleParsingTemplate
     public SoleParsingTemplate(string decimalSeparator, string variableSeparator)
     {
         if (string.IsNullOrEmpty(decimalSeparator) is true)
-            throw new ArgumentException("The decimal separator must not be null or empty.", nameof(decimalSeparator));
+            throw new ArgumentException("Decimal separator must not be null or empty.", nameof(decimalSeparator));
 
         if (string.IsNullOrEmpty(variableSeparator) is true)
-            throw new ArgumentException("The variable separator must not be null or empty.", nameof(variableSeparator));
+            throw new ArgumentException("Variable separator must not be null or empty.", nameof(variableSeparator));
 
         (DecimalSeparator, VariableSeparator) = (decimalSeparator, variableSeparator);
 

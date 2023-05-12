@@ -2,7 +2,7 @@
 
 internal static class ThreadSynchronizationPrimitiveExtensions
 {
-    internal static void ParticipantsRemainingWait(this Barrier barrier, int participantCount)
+    public static void ParticipantsRemainingWait(this Barrier barrier, int participantCount)
     {
         while (barrier.ParticipantsRemaining != participantCount) { }
     }
