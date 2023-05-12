@@ -1,0 +1,90 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTemplate TargetType="Button" x:Key="DefaultButtonControlTemplate">
+        <Border x:Name="ButtonBorder"
+                BorderBrush="{StaticResource ButtonBorderBrush}"
+                Background="{StaticResource ButtonBackgroundBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <ContentPresenter Content="{TemplateBinding Content}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="ButtonBorder"
+                        Property="Background"
+                        Value="{StaticResource ButtonDisabledBackgroundBrush}"/>
+                <Setter Property="Foreground"
+                        Value="{StaticResource ButtonDisabledForegroundBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="ButtonBorder"
+                        Property="Background"
+                        Value="{StaticResource ButtonMouseOverBackgroundBrush}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate TargetType="Button" x:Key="UpButtonControlTemplate">
+        <Grid>
+            <Border x:Name="ButtonBorder"
+                    BorderBrush="{StaticResource ButtonBorderBrush}"
+                    Background="{StaticResource ButtonBackgroundBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}">
+            </Border>
+            <Path x:Name="ButtonArrow"
+                  Fill="{StaticResource UpDownButtonArrowBackgroundBrush}"
+                  Data="M 0 4 L 8 4 L 4 0 Z"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="ButtonBorder"
+                        Property="Background"
+                        Value="{StaticResource ButtonDisabledBackgroundBrush}"/>
+                <Setter TargetName="ButtonArrow"
+                        Property="Fill"
+                        Value="{StaticResource UpDownButtonDisabledArrowBackgroundBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="ButtonBorder"
+                        Property="Background"
+                        Value="{StaticResource ButtonMouseOverBackgroundBrush}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate TargetType="Button" x:Key="DownButtonControlTemplate">
+        <Grid>
+            <Border x:Name="ButtonBorder"
+                    BorderBrush="{StaticResource ButtonBorderBrush}"
+                    Background="{StaticResource ButtonBackgroundBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}">
+            </Border>
+            <Path x:Name="ButtonArrow"
+                  Fill="{StaticResource UpDownButtonArrowBackgroundBrush}"
+                  Data="M 0 0 L 4 4 L 8 0 Z"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="ButtonBorder"
+                        Property="Background"
+                        Value="{StaticResource ButtonDisabledBackgroundBrush}"/>
+                <Setter TargetName="ButtonArrow"
+                        Property="Fill"
+                        Value="{StaticResource UpDownButtonDisabledArrowBackgroundBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="ButtonBorder"
+                        Property="Background"
+                        Value="{StaticResource ButtonMouseOverBackgroundBrush}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+</ResourceDictionary>
