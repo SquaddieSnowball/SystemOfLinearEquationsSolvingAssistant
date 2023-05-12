@@ -1,0 +1,195 @@
+﻿<Window x:Class="SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views.Windows.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SystemOfLinearEquationsSolvingAssistant.UI.Desktop.ViewModels.Windows"
+        xmlns:c="clr-namespace:SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Extensions.Controls"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
+        Style="{StaticResource DefaultWindowStyle}"
+        Title="System of linear equations solving assistant"
+        Height="740"
+        Width="450"
+        MinHeight="740"
+        MinWidth="450"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0"
+                  Header="Input"
+                  Style="{StaticResource WindowSectionTopGroupBoxStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.3*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0"
+                              Header="Matrix A"
+                              Style="{StaticResource WindowSubsectionGroupBoxStyle}">
+                        <c:InputDataGrid Style="{StaticResource InputDataGridStyle}"
+                                         ItemsSource="{Binding DataTableMatrixA, Mode=TwoWay}"
+                                         IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1"
+                              Header="Vector B"
+                              Style="{StaticResource WindowSubsectionGroupBoxStyle}">
+                        <c:InputDataGrid Style="{StaticResource InputDataGridStyle}"
+                                         ItemsSource="{Binding DataTableVectorB, Mode=TwoWay}"
+                                         IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                    </GroupBox>
+                </Grid>
+                <StackPanel Grid.Row="1"
+                            Style="{StaticResource HorizontalStackPanelStyle}"
+                            Margin="0,7,0,0">
+                    <Button Content="+"
+                            Style="{StaticResource SquareButtonStyle}"
+                            Command="{Binding AddDataDimensionCommand}"
+                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                    <Button Content="-"
+                            Style="{StaticResource SquareButtonStyle}"
+                            Command="{Binding RemoveDataDimensionCommand}"
+                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                    <Button Content="Reset"
+                            Style="{StaticResource DefaultButtonStyle}"
+                            Command="{Binding ResetDataCommand}"
+                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                    <Button Content="Load from files"
+                            Style="{StaticResource DefaultButtonStyle}"
+                            Command="{Binding LoadFromFilesCommand}"
+                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1"
+                  Header="Solution options"
+                  Style="{StaticResource WindowSectionMiddleGroupBoxStyle}">
+            <GroupBox.Resources>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource DefaultTextBlockStyle}">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                </Style>
+                <Style TargetType="ComboBox" BasedOn="{StaticResource DefaultComboBoxStyle}">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Setter Property="IsEnabled" Value="{Binding IsSolvingProcessEnded}"/>
+                </Style>
+                <Style TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Setter Property="IsEnabled" Value="{Binding IsSolvingProcessEnded}"/>
+                </Style>
+                <Style TargetType="TextBox" BasedOn="{StaticResource DefaultTextBoxStyle}">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Setter Property="Width" Value="106"/>
+                    <Setter Property="IsReadOnly" Value="True"/>
+                </Style>
+            </GroupBox.Resources>
+            <WrapPanel Style="{StaticResource HorizontalWrapPanelStyle}">
+                <GroupBox Header="Serial solution"
+                          Style="{StaticResource WindowSubsectionGroupBoxStyle}">
+                    <StackPanel Style="{StaticResource HorizontalStackPanelStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Text="Algorithm"/>
+                            <ComboBox Grid.Row="1"
+                                      ItemsSource="{Binding AlgorithmNamesSerial}"
+                                      SelectedIndex="{Binding AlgorithmNamesSerialSelectedIndex}"
+                                      Width="200"/>
+                        </Grid>
+                        <Button Content="Solve"
+                                Command="{Binding SolveSerialCommand}"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Text="Elapsed time"/>
+                            <TextBox Grid.Row="1"
+                                     Text="{Binding ElapsedTimeSerial}"/>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Parallel solution"
+                          Style="{StaticResource WindowSubsectionGroupBoxStyle}">
+                    <StackPanel Style="{StaticResource HorizontalStackPanelStyle}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Text="Algorithm"/>
+                            <ComboBox Grid.Row="1"
+                                      Style="{StaticResource DefaultComboBoxStyle}"
+                                      ItemsSource="{Binding AlgorithmNamesParallel}"
+                                      SelectedIndex="{Binding AlgorithmNamesParallelSelectedIndex}"
+                                      Width="142.5"/>
+                        </Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Text="Threads"/>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0"
+                                         Text="{Binding ThreadsNumParallel}"
+                                         Style="{StaticResource UpDownTextBoxStyle}"/>
+                                <StackPanel Grid.Column="1"
+                                            Style="{StaticResource UpDownStackPanelStyle}">
+                                    <Button Style="{StaticResource UpButtonStyle}"
+                                            Command="{Binding AddThreadParallelCommand}"
+                                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                                    <Button Style="{StaticResource DownButtonStyle}"
+                                            Command="{Binding RemoveThreadParallelCommand}"
+                                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                        <Button Content="Solve"
+                                Command="{Binding SolveParallelCommand}"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Text="Elapsed time"/>
+                            <TextBox Grid.Row="1"
+                                     Text="{Binding ElapsedTimeParallel}"/>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+            </WrapPanel>
+        </GroupBox>
+        <GroupBox Grid.Row="2"
+                  Header="Solution set"
+                  Style="{StaticResource WindowSectionBottomGroupBoxStyle}">
+            <TextBox Text="{Binding SolutionSet}"
+                     Style="{StaticResource ContentTextBoxStyle}"
+                     Height="70"
+                     IsReadOnly="True"/>
+        </GroupBox>
+    </Grid>
+</Window>
