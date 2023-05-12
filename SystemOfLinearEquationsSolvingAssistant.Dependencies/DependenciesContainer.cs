@@ -5,7 +5,7 @@ namespace SystemOfLinearEquationsSolvingAssistant.Dependencies;
 
 public static class DependenciesContainer
 {
-    private static readonly MethodInfo _resolveMethod = typeof(DependenciesContainer).GetMethod("Resolve")!;
+    private static readonly MethodInfo _resolveMethod = typeof(DependenciesContainer).GetMethod(nameof(Resolve))!;
     private static readonly List<Dependency> _dependencies = new();
 
     public static void Register<T>(DependencyObjectLifetime dependencyObjectLifetime)
