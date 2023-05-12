@@ -1,0 +1,56 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="GroupBoxBorderBrush" Color="#3D3D3D"/>
+
+    <SolidColorBrush x:Key="ScrollBarLineButtonBackgroundBrush" Color="#2E2E2E"/>
+    <SolidColorBrush x:Key="ScrollBarLineButtonMouseOverBackgroundBrush" Color="#999999"/>
+    <SolidColorBrush x:Key="ScrollBarLineButtonArrowBackgroundBrush" Color="#999999"/>
+    <SolidColorBrush x:Key="ScrollBarLineButtonMouseOverArrowBackgroundBrush" Color="#1F1F1F"/>
+    <SolidColorBrush x:Key="ScrollBarPageButtonBackgroundBrush" Color="#2E2E2E"/>
+    <SolidColorBrush x:Key="ScrollBarThumbBackgroundBrush" Color="#4D4D4D"/>
+    <SolidColorBrush x:Key="ScrollBarThumbMouseOverBackgroundBrush" Color="#999999"/>
+    <SolidColorBrush x:Key="ScrollBarBackgroundBrush" Color="#2E2E2E"/>
+
+    <SolidColorBrush x:Key="TextBoxBorderBrush" Color="#707070"/>
+    <SolidColorBrush x:Key="TextBoxBackgroundBrush" Color="#383838"/>
+    <SolidColorBrush x:Key="TextBoxDisabledBackgroundBrush" Color="#383838"/>
+    <SolidColorBrush x:Key="TextBoxCaretBrush" Color="#D6D6D6"/>
+    <SolidColorBrush x:Key="TextBoxSelectionBrush" Color="#D6D6D6"/>
+    <SolidColorBrush x:Key="TextBoxForegroundBrush" Color="#FAFAFA"/>
+
+    <SolidColorBrush x:Key="ButtonBorderBrush" Color="#707070"/>
+    <SolidColorBrush x:Key="ButtonBackgroundBrush" Color="#383838"/>
+    <SolidColorBrush x:Key="ButtonDisabledBackgroundBrush" Color="#383838"/>
+    <SolidColorBrush x:Key="ButtonMouseOverBackgroundBrush" Color="#4D4D4D"/>
+    <SolidColorBrush x:Key="ButtonForegroundBrush" Color="#FAFAFA"/>
+    <SolidColorBrush x:Key="ButtonDisabledForegroundBrush" Color="#898989"/>
+    <SolidColorBrush x:Key="UpDownButtonArrowBackgroundBrush" Color="#D6D6D6"/>
+    <SolidColorBrush x:Key="UpDownButtonDisabledArrowBackgroundBrush" Color="#898989"/>
+
+    <SolidColorBrush x:Key="ComboBoxItemBorderBrush" Color="#2E2E2E"/>
+    <SolidColorBrush x:Key="ComboBoxItemHighlightedBorderBrush" Color="#707070"/>
+    <SolidColorBrush x:Key="ComboBoxItemBackgroundBrush" Color="#2E2E2E"/>
+    <SolidColorBrush x:Key="ComboBoxItemHighlightedBackgroundBrush" Color="#3D3D3D"/>
+    <SolidColorBrush x:Key="ComboBoxItemForegroundBrush" Color="#FAFAFA"/>
+    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="#707070"/>
+    <SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="#383838"/>
+    <SolidColorBrush x:Key="ComboBoxMouseOverBackgroundBrush" Color="#3D3D3D"/>
+    <SolidColorBrush x:Key="ComboBoxPoppedBackgroundBrush" Color="#3D3D3D"/>
+    <SolidColorBrush x:Key="ComboBoxArrowBackgroundBrush" Color="#D6D6D6"/>
+    <SolidColorBrush x:Key="ComboBoxPopupBackgroundBrush" Color="#2E2E2E"/>
+    <SolidColorBrush x:Key="ComboBoxForegroundBrush" Color="#FAFAFA"/>
+
+    <SolidColorBrush x:Key="DataGridHeaderBackgroundBrush" Color="#2E2E2E"/>
+    <SolidColorBrush x:Key="DataGridHeaderForegroundBrush" Color="#FAFAFA"/>
+    <SolidColorBrush x:Key="DataGridCellBorderBrush" Color="#D6D6D6"/>
+    <SolidColorBrush x:Key="DataGridCellBackgroundBrush" Color="#383838"/>
+    <SolidColorBrush x:Key="DataGridCellSelectedBackgroundBrush" Color="#707070"/>
+    <SolidColorBrush x:Key="DataGridCellForegroundBrush" Color="#FAFAFA"/>
+    <SolidColorBrush x:Key="DataGridBorderBrush" Color="#707070"/>
+    <SolidColorBrush x:Key="DataGridBackgroundBrush" Color="#2E2E2E"/>
+
+    <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="WindowForegroundBrush" Color="#FAFAFA"/>
+
+</ResourceDictionary>
