@@ -7,4 +7,9 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\SystemOfLinearEquationsSolvingAssistant.BL\SystemOfLinearEquationsSolvingAssistant.BL.csproj" />
+		<ProjectReference Include="..\SystemOfLinearEquationsSolvingAssistant.Dependencies\SystemOfLinearEquationsSolvingAssistant.Dependencies.csproj" />
+	</ItemGroup>
+
 </Project>
