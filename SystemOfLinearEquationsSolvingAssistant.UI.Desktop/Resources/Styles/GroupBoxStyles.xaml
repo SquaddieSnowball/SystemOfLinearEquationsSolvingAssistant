@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style TargetType="GroupBox" x:Key="DefaultGroupBoxStyle">
+        <Setter Property="Template" Value="{StaticResource DefaultGroupBoxControlTemplate}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+
+    <Style TargetType="GroupBox" x:Key="WindowSectionTopGroupBoxStyle" BasedOn="{StaticResource DefaultGroupBoxStyle}">
+        <Setter Property="Margin" Value="10,10,10,5"/>
+    </Style>
+
+    <Style TargetType="GroupBox" x:Key="WindowSectionMiddleGroupBoxStyle" BasedOn="{StaticResource DefaultGroupBoxStyle}">
+        <Setter Property="Margin" Value="10,5,10,5"/>
+    </Style>
+
+    <Style TargetType="GroupBox" x:Key="WindowSectionBottomGroupBoxStyle" BasedOn="{StaticResource DefaultGroupBoxStyle}">
+        <Setter Property="Margin" Value="10,5,10,10"/>
+    </Style>
+
+    <Style TargetType="GroupBox" x:Key="WindowSubsectionGroupBoxStyle" BasedOn="{StaticResource DefaultGroupBoxStyle}">
+        <Setter Property="Margin" Value="3"/>
+    </Style>
+
+</ResourceDictionary>
