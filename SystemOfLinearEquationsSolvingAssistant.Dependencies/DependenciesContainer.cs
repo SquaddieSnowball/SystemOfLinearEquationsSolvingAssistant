@@ -15,7 +15,7 @@ public static class DependenciesContainer
             Register<T, T>(dependencyObjectLifetime);
         }
         catch (ArgumentException ex) when
-            (ex.Message.Equals("This dependency has already been registered.", StringComparison.Ordinal))
+            (ex.Message.Equals("This dependency has already been registered.", StringComparison.Ordinal) is true)
         {
             throw new ArgumentException("This dependency has already been registered.", nameof(T));
         }
@@ -35,7 +35,7 @@ public static class DependenciesContainer
         Type abstractType = typeof(TAbstract);
         Type concreteType = typeof(TConcrete);
 
-        if (_dependencies.FirstOrDefault(d => d.AbstractType.Equals(abstractType)) is not null)
+        if (_dependencies.FirstOrDefault(d => d.AbstractType.Equals(abstractType) is true) is not null)
             throw new ArgumentException("This dependency has already been registered.", nameof(TAbstract));
 
         _dependencies.Add(new Dependency(abstractType, concreteType, dependencyObjectLifetime));
@@ -43,7 +43,7 @@ public static class DependenciesContainer
 
     public static T? Resolve<T>()
     {
-        Dependency? dependency = _dependencies.FirstOrDefault(d => d.AbstractType.Equals(typeof(T))) ??
+        Dependency? dependency = _dependencies.FirstOrDefault(d => d.AbstractType.Equals(typeof(T)) is true) ??
             throw new ArgumentException("This dependency has not yet been registered.", nameof(T));
 
         if ((dependency.DependencyObjectLifetime is DependencyObjectLifetime.Singleton) &&
@@ -60,7 +60,7 @@ public static class DependenciesContainer
         foreach (ParameterInfo[] constructorParameters in constructorParametersEnumerable)
         {
             if (constructorParameters.Any(p => _dependencies.FirstOrDefault
-                (d => d.AbstractType.Equals(p.ParameterType)) is null) is true)
+                (d => d.AbstractType.Equals(p.ParameterType) is true) is null) is true)
                 continue;
 
             object?[] constructorArguments = constructorParameters
