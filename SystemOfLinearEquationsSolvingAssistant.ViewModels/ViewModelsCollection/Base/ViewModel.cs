@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.ViewModels;
+namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection.Base;
 
-internal abstract class ViewModel : INotifyPropertyChanged
+public abstract class ViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 

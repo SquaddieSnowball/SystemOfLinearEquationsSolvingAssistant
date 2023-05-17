@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
+﻿using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 
-namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
+namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Implementations;
 
-internal sealed class SoleSolvingAlgorithmNameService : ISoleSolvingAlgorithmNameService
+public sealed class SoleSolvingAlgorithmNameService : ISoleSolvingAlgorithmNameService
 {
     private readonly Dictionary<SoleSolvingAlgorithmSerial, string> _algorithmValueNamesSerial = new();
     private readonly Dictionary<SoleSolvingAlgorithmParallel, string> _algorithmValueNamesParallel = new();

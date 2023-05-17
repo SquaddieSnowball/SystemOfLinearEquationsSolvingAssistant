@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Models.EventBus;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
+﻿using SystemOfLinearEquationsSolvingAssistant.ViewModels.Models.EventBusService.IntegrationEvents.Base;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 
-namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
+namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Implementations;
 
-internal sealed class EventBusService : IEventBusService
+public sealed class EventBusService : IEventBusService
 {
     private readonly Dictionary<Type, Delegate?> _subscribtions = new();
     private readonly object _lock = new();

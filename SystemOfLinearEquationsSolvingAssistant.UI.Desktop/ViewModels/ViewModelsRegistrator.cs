@@ -1,6 +1,6 @@
 ﻿using SystemOfLinearEquationsSolvingAssistant.Dependencies.Entities;
 using SystemOfLinearEquationsSolvingAssistant.Dependencies;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.ViewModels.Windows;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.ViewModels;
 
@@ -8,7 +8,7 @@ internal static class ViewModelsRegistrator
 {
     public static void Register()
     {
-        DependenciesContainer.Register<MainWindowViewModel>(DependencyObjectLifetime.Singleton);
-        DependenciesContainer.Register<LoadingSoleFromFilesWindowViewModel>(DependencyObjectLifetime.Singleton);
+        DependenciesContainer.Register<MainViewModel>(DependencyObjectLifetime.Singleton);
+        DependenciesContainer.Register<LoadingSoleFromFilesViewModel>(DependencyObjectLifetime.Singleton);
     }
 }

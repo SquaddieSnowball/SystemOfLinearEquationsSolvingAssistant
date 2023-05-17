@@ -1,15 +1,14 @@
-﻿using System;
-using System.Windows.Input;
-using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
-using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Parsers;
+﻿using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
 using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Parsers.Entities;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Commands;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Models.EventBus.IntegrationEvents;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
+using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Parsers;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Commands.Base;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Models.EventBusService.IntegrationEvents;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection.Base;
 
-namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.ViewModels.Windows;
+namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection;
 
-internal sealed class LoadingSoleFromFilesWindowViewModel : ViewModel
+public sealed class LoadingSoleFromFilesViewModel : ViewModel
 {
     private readonly ISoleParser _soleParser;
     private readonly IViewManagerService _viewManagerService;
@@ -52,13 +51,13 @@ internal sealed class LoadingSoleFromFilesWindowViewModel : ViewModel
         set => Set(ref _isParsingProcessEnded, value);
     }
 
-    public ICommand OpenFileMatrixACommand { get; }
+    public RelayCommand<object?> OpenFileMatrixACommand { get; }
 
-    public ICommand OpenFileVectorBCommand { get; }
+    public RelayCommand<object?> OpenFileVectorBCommand { get; }
 
-    public ICommand ConfirmLoadOptionsCommand { get; }
+    public RelayCommand<object?> ConfirmLoadOptionsCommand { get; }
 
-    public LoadingSoleFromFilesWindowViewModel(ISoleParser soleParser, IViewManagerService viewManagerService,
+    public LoadingSoleFromFilesViewModel(ISoleParser soleParser, IViewManagerService viewManagerService,
         IEventBusService eventBusService, IUserDialogService userDialogService)
     {
         if (soleParser is null)
@@ -88,9 +87,12 @@ internal sealed class LoadingSoleFromFilesWindowViewModel : ViewModel
         _variableSeparator = string.Empty;
         _isParsingProcessEnded = true;
 
-        OpenFileMatrixACommand = new RelayCommand(OnOpenFileMatrixACommandExecute, CanOpenFileMatrixACommandExecute);
-        OpenFileVectorBCommand = new RelayCommand(OnOpenFileVectorBCommandExecute, CanOpenFileVectorBCommandExecute);
-        ConfirmLoadOptionsCommand = new RelayCommand(OnConfirmLoadOptionsCommandExecute, CanConfirmLoadOptionsCommandExecute);
+        OpenFileMatrixACommand = new RelayCommand<object?>
+            (OnOpenFileMatrixACommandExecute, CanOpenFileMatrixACommandExecute, this);
+        OpenFileVectorBCommand = new RelayCommand<object?>
+            (OnOpenFileVectorBCommandExecute, CanOpenFileVectorBCommandExecute, this);
+        ConfirmLoadOptionsCommand = new RelayCommand<object?>
+            (OnConfirmLoadOptionsCommandExecute, CanConfirmLoadOptionsCommandExecute, this);
     }
 
     private void OnOpenFileMatrixACommandExecute()

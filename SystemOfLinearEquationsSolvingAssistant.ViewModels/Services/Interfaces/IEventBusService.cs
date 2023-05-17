@@ -1,9 +1,8 @@
-﻿using System;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Models.EventBus;
+﻿using SystemOfLinearEquationsSolvingAssistant.ViewModels.Models.EventBusService.IntegrationEvents.Base;
 
-namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
+namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 
-internal interface IEventBusService
+public interface IEventBusService
 {
     void Subscribe<T>(Action<T> integrationEventHandler) where T : IntegrationEvent;
 

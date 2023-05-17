@@ -10,6 +10,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\SystemOfLinearEquationsSolvingAssistant.BL\SystemOfLinearEquationsSolvingAssistant.BL.csproj" />
 		<ProjectReference Include="..\SystemOfLinearEquationsSolvingAssistant.Dependencies\SystemOfLinearEquationsSolvingAssistant.Dependencies.csproj" />
+		<ProjectReference Include="..\SystemOfLinearEquationsSolvingAssistant.ViewModels\SystemOfLinearEquationsSolvingAssistant.ViewModels.csproj" />
 	</ItemGroup>
 
 </Project>

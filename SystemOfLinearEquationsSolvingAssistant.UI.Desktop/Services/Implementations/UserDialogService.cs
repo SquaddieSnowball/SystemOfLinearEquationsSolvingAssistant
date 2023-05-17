@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
 

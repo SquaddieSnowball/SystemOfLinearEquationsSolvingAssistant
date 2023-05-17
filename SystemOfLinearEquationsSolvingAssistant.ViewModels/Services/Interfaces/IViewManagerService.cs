@@ -1,6 +1,6 @@
-﻿namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
+﻿namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 
-internal interface IViewManagerService
+public interface IViewManagerService
 {
     void ShowView(string viewName, string? ownerViewName = default, bool isDialogMode = false);
 

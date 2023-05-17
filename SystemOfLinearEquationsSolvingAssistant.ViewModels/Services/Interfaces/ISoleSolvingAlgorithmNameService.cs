@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
+﻿using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
 
-namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
+namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 
-internal interface ISoleSolvingAlgorithmNameService
+public interface ISoleSolvingAlgorithmNameService
 {
     IEnumerable<string> AlgorithmNamesSerial { get; }
 

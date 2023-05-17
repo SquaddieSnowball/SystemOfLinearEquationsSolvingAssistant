@@ -1,6 +1,6 @@
-﻿namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
+﻿namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 
-internal interface IUserDialogService
+public interface IUserDialogService
 {
     void ShowInformationMessage(string message, string title = "Information");
 

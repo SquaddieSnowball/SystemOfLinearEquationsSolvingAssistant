@@ -4,15 +4,15 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using SystemOfLinearEquationsSolvingAssistant.Dependencies;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.ViewModels;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection.Base;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
 
 internal sealed class ViewManagerService : IViewManagerService
 {
     private const string ViewsNamespace = "SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views";
-    private const string ViewModelsNamespace = "SystemOfLinearEquationsSolvingAssistant.UI.Desktop.ViewModels";
+    private const string ViewModelsNamespace = "SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection";
 
     private readonly MethodInfo _resolveMethod =
         typeof(DependenciesContainer).GetMethod(nameof(DependenciesContainer.Resolve))!;
@@ -80,7 +80,7 @@ internal sealed class ViewManagerService : IViewManagerService
     private static Type? GetViewType(string viewName)
     {
         IEnumerable<Type> viewTypes =
-            Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace?.Contains(ViewsNamespace) ?? false);
+            Assembly.GetAssembly(typeof(App))!.GetTypes().Where(t => t.Namespace?.Contains(ViewsNamespace) ?? false);
 
         foreach (Type viewType in viewTypes)
             if (viewType.Name.Equals(viewName + "View", StringComparison.Ordinal) is true)
@@ -92,7 +92,7 @@ internal sealed class ViewManagerService : IViewManagerService
     private static Type? GetViewModelType(string viewName)
     {
         IEnumerable<Type> viewModelTypes =
-            Assembly.GetExecutingAssembly().GetTypes().Where(t => t.Namespace?.Contains(ViewModelsNamespace) ?? false);
+            Assembly.GetAssembly(typeof(ViewModel))!.GetTypes().Where(t => t.Namespace?.Contains(ViewModelsNamespace) ?? false);
 
         foreach (Type viewModelType in viewModelTypes)
             if (viewModelType.Name.Equals(viewName + "ViewModel", StringComparison.Ordinal) is true)

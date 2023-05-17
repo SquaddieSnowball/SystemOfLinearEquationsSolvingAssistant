@@ -3,9 +3,10 @@ using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.
 using SystemOfLinearEquationsSolvingAssistant.Dependencies.Entities;
 using SystemOfLinearEquationsSolvingAssistant.Dependencies;
 using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Interfaces;
 using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Parsers;
 using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Parsers.Implementations;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Implementations;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services;
 
