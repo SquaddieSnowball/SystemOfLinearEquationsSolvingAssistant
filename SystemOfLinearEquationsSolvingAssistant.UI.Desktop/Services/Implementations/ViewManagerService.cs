@@ -14,9 +14,6 @@ internal sealed class ViewManagerService : IViewManagerService
     private const string ViewsNamespace = "SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views";
     private const string ViewModelsNamespace = "SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection";
 
-    private readonly MethodInfo _resolveMethod =
-        typeof(DependenciesContainer).GetMethod(nameof(DependenciesContainer.Resolve), Array.Empty<Type>())!;
-
     public void ShowView(string viewName, string? ownerViewName = default, bool isDialogMode = false)
     {
         if (string.IsNullOrEmpty(viewName) is true)
@@ -32,8 +29,8 @@ internal sealed class ViewManagerService : IViewManagerService
 
         try
         {
-            view = (Window)_resolveMethod.MakeGenericMethod(viewType).Invoke(default, default)!;
-            viewModel = (ViewModel)_resolveMethod.MakeGenericMethod(viewModelType).Invoke(default, default)!;
+            view = (Window)DependenciesContainer.Resolve(viewType)!;
+            viewModel = (ViewModel)DependenciesContainer.Resolve(viewModelType)!;
 
             view.DataContext = viewModel;
 
@@ -42,7 +39,7 @@ internal sealed class ViewManagerService : IViewManagerService
                 Type ownerViewType = GetViewType(ownerViewName) ??
                     throw new ArgumentException("The view with the specified name does not exist.", nameof(ownerViewName));
 
-                Window ownerView = (Window)_resolveMethod.MakeGenericMethod(ownerViewType).Invoke(default, default)!;
+                Window ownerView = (Window)DependenciesContainer.Resolve(ownerViewType)!;
 
                 view.Owner = ownerView;
             }
