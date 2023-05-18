@@ -1,6 +1,6 @@
 ﻿namespace SystemOfLinearEquationsSolvingAssistant.Dependencies.Entities;
 
-internal sealed class Dependency
+internal sealed class DependencyDescriptor
 {
     public Type AbstractType { get; }
 
@@ -10,6 +10,6 @@ internal sealed class Dependency
 
     public object? DependencyObject { get; set; }
 
-    public Dependency(Type abstractType, Type realType, DependencyObjectLifetime dependencyObjectLifetime) =>
+    public DependencyDescriptor(Type abstractType, Type realType, DependencyObjectLifetime dependencyObjectLifetime) =>
         (AbstractType, RealType, DependencyObjectLifetime) = (abstractType, realType, dependencyObjectLifetime);
 }

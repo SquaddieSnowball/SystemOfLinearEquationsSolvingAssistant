@@ -15,7 +15,7 @@ internal sealed class ViewManagerService : IViewManagerService
     private const string ViewModelsNamespace = "SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection";
 
     private readonly MethodInfo _resolveMethod =
-        typeof(DependenciesContainer).GetMethod(nameof(DependenciesContainer.Resolve))!;
+        typeof(DependenciesContainer).GetMethod(nameof(DependenciesContainer.Resolve), Array.Empty<Type>())!;
 
     public void ShowView(string viewName, string? ownerViewName = default, bool isDialogMode = false)
     {
