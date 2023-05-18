@@ -2,17 +2,17 @@
 using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Parsers.Entities;
 using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Parsers;
 using SystemOfLinearEquationsSolvingAssistant.ViewModels.Commands.Base;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.Models.EventBusService.IntegrationEvents;
 using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection.Base;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Entities.IntegrationEvents;
 
 namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection;
 
 public sealed class LoadingSoleFromFilesViewModel : ViewModel
 {
     private readonly ISoleParser _soleParser;
-    private readonly IViewManagerService _viewManagerService;
     private readonly IEventBusService _eventBusService;
+    private readonly IViewManagerService _viewManagerService;
     private readonly IUserDialogService _userDialogService;
 
     private string _filePathMatrixA;
@@ -57,28 +57,28 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
 
     public RelayCommand<object?> ConfirmLoadOptionsCommand { get; }
 
-    public LoadingSoleFromFilesViewModel(ISoleParser soleParser, IViewManagerService viewManagerService,
-        IEventBusService eventBusService, IUserDialogService userDialogService)
+    public LoadingSoleFromFilesViewModel(ISoleParser soleParser, IEventBusService eventBusService,
+        IViewManagerService viewManagerService, IUserDialogService userDialogService)
     {
         if (soleParser is null)
             throw new ArgumentNullException(nameof(soleParser),
                 "Sole parser must not be null.");
 
-        if (viewManagerService is null)
-            throw new ArgumentNullException(nameof(viewManagerService),
-                "View manager service must not be null.");
-
         if (eventBusService is null)
             throw new ArgumentNullException(nameof(eventBusService),
                 "Event bus service must not be null.");
+
+        if (viewManagerService is null)
+            throw new ArgumentNullException(nameof(viewManagerService),
+                "View manager service must not be null.");
 
         if (userDialogService is null)
             throw new ArgumentNullException(nameof(userDialogService),
                 "User dialog service must not be null.");
 
         _soleParser = soleParser;
-        _viewManagerService = viewManagerService;
         _eventBusService = eventBusService;
+        _viewManagerService = viewManagerService;
         _userDialogService = userDialogService;
 
         _filePathMatrixA = string.Empty;

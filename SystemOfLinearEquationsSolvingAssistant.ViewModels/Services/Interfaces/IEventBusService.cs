@@ -1,4 +1,4 @@
-﻿using SystemOfLinearEquationsSolvingAssistant.ViewModels.Models.EventBusService.IntegrationEvents.Base;
+﻿using SystemOfLinearEquationsSolvingAssistant.ViewModels.Entities.IntegrationEvents.Base;
 
 namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 

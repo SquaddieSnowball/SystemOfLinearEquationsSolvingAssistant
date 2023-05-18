@@ -1,7 +1,7 @@
 ﻿using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.Models.EventBusService.IntegrationEvents.Base;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Entities.IntegrationEvents.Base;
 
-namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Models.EventBusService.IntegrationEvents;
+namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Entities.IntegrationEvents;
 
 public sealed class SoleLoadedIntegrationEvent : IntegrationEvent
 {

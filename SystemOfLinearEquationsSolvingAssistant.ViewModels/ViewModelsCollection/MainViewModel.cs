@@ -3,7 +3,7 @@ using System.Text;
 using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
 using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Solvers;
 using SystemOfLinearEquationsSolvingAssistant.ViewModels.Commands.Base;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.Models.EventBusService.IntegrationEvents;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Entities.IntegrationEvents;
 using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection.Base;
 
@@ -17,10 +17,10 @@ public sealed class MainViewModel : ViewModel
     private const int MaxThreadsNumParallel = 99;
 
     private readonly ISoleSolver _soleSolver;
-    private readonly IViewManagerService _viewManagerService;
     private readonly IEventBusService _eventBusService;
-    private readonly IUserDialogService _userDialogService;
     private readonly ISoleSolvingAlgorithmNameService _soleSolvingAlgorithmNameService;
+    private readonly IViewManagerService _viewManagerService;
+    private readonly IUserDialogService _userDialogService;
 
     private int _currentDataDimension;
     private DataTable _dataTableMatrixA;
@@ -117,34 +117,35 @@ public sealed class MainViewModel : ViewModel
 
     public RelayCommand<object?> SolveParallelCommand { get; }
 
-    public MainViewModel(ISoleSolver soleSolver, IViewManagerService viewManagerService, IEventBusService eventBusService,
-        IUserDialogService userDialogService, ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService)
+    public MainViewModel(ISoleSolver soleSolver, IEventBusService eventBusService,
+        ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService, IViewManagerService viewManagerService,
+        IUserDialogService userDialogService)
     {
         if (soleSolver is null)
             throw new ArgumentNullException(nameof(soleSolver),
                 "Sole solver must not be null.");
 
-        if (viewManagerService is null)
-            throw new ArgumentNullException(nameof(viewManagerService),
-                "View manager service must not be null.");
-
         if (eventBusService is null)
             throw new ArgumentNullException(nameof(eventBusService),
                 "Event bus service must not be null.");
-
-        if (userDialogService is null)
-            throw new ArgumentNullException(nameof(userDialogService),
-                "User dialog service must not be null.");
 
         if (soleSolvingAlgorithmNameService is null)
             throw new ArgumentNullException(nameof(soleSolvingAlgorithmNameService),
                 "Sole solving algorithm name service must not be null.");
 
+        if (viewManagerService is null)
+            throw new ArgumentNullException(nameof(viewManagerService),
+                "View manager service must not be null.");
+
+        if (userDialogService is null)
+            throw new ArgumentNullException(nameof(userDialogService),
+                "User dialog service must not be null.");
+
         _soleSolver = soleSolver;
-        _viewManagerService = viewManagerService;
         _eventBusService = eventBusService;
-        _userDialogService = userDialogService;
         _soleSolvingAlgorithmNameService = soleSolvingAlgorithmNameService;
+        _viewManagerService = viewManagerService;
+        _userDialogService = userDialogService;
 
         _dataTableMatrixA = new DataTable();
         _dataTableVectorB = new DataTable();
