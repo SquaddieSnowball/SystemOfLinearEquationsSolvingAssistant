@@ -4,7 +4,7 @@ using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
 
-internal sealed class UserDialogService : IUserDialogService
+internal sealed class WpfUserDialogService : IUserDialogService
 {
     public void ShowInformationMessage(string message, string title = "Information") =>
         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);

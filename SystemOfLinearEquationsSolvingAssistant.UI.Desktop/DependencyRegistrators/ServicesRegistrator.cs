@@ -23,8 +23,8 @@ internal static class ServicesRegistrator
         DependenciesContainer
             .Register<ISoleSolvingAlgorithmNameService, SoleSolvingAlgorithmNameService>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
-            .Register<IViewManagerService, ViewManagerService>(DependencyObjectLifetime.Singleton);
+            .Register<IViewManagerService, WpfViewManagerService>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
-            .Register<IUserDialogService, UserDialogService>(DependencyObjectLifetime.Transient);
+            .Register<IUserDialogService, WpfUserDialogService>(DependencyObjectLifetime.Transient);
     }
 }

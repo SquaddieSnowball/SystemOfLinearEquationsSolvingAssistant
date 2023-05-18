@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:LoadingSoleFromFilesViewModel}"
         Style="{StaticResource DefaultWindowStyle}"
-        Title="Loading a system of linear equations from files"
+        Title="{Binding Title}"
         Height="250"
         Width="350"
         ResizeMode="NoResize"

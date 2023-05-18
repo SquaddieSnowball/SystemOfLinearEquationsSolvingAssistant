@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Extensions.AttachedProperties;
 
-public sealed class PanelChildren
+internal sealed class PanelChildren
 {
     public static readonly DependencyProperty MarginProperty =
         DependencyProperty.RegisterAttached("Margin", typeof(Thickness), typeof(PanelChildren),

@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance vm:MainViewModel}"
         Style="{StaticResource DefaultWindowStyle}"
-        Title="System of linear equations solving assistant"
+        Title="{Binding Title}"
         Height="740"
         Width="450"
         MinHeight="740"

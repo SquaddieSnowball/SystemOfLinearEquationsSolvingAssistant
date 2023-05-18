@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Extensions.Controls;
 
-internal class InputDataGrid : DataGrid
+internal sealed class InputDataGrid : DataGrid
 {
     protected override void OnLoadingRow(DataGridRowEventArgs e)
     {

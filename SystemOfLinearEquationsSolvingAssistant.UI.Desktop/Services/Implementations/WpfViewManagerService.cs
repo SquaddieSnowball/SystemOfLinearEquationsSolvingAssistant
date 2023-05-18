@@ -9,7 +9,7 @@ using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection.Ba
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
 
-internal sealed class ViewManagerService : IViewManagerService
+internal sealed class WpfViewManagerService : IViewManagerService
 {
     private const string ViewsNamespace = "SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views";
     private const string ViewModelsNamespace = "SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection";
