@@ -101,21 +101,21 @@ public sealed class MainViewModel : ViewModel
         set => Set(ref _isSolvingProcessEnded, value);
     }
 
-    public RelayCommand<object?> AddDataDimensionCommand { get; }
+    public RelayCommand AddDataDimensionCommand { get; }
 
-    public RelayCommand<object?> RemoveDataDimensionCommand { get; }
+    public RelayCommand RemoveDataDimensionCommand { get; }
 
-    public RelayCommand<object?> ResetDataCommand { get; }
+    public RelayCommand ResetDataCommand { get; }
 
-    public RelayCommand<object?> LoadFromFilesCommand { get; }
+    public RelayCommand LoadFromFilesCommand { get; }
 
-    public RelayCommand<object?> AddThreadParallelCommand { get; }
+    public RelayCommand AddThreadParallelCommand { get; }
 
-    public RelayCommand<object?> RemoveThreadParallelCommand { get; }
+    public RelayCommand RemoveThreadParallelCommand { get; }
 
-    public RelayCommand<object?> SolveSerialCommand { get; }
+    public RelayCommand SolveSerialCommand { get; }
 
-    public RelayCommand<object?> SolveParallelCommand { get; }
+    public RelayCommand SolveParallelCommand { get; }
 
     public MainViewModel(ISoleSolver soleSolver, IEventBusService eventBusService,
         ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService, IViewManagerService viewManagerService,
@@ -155,21 +155,21 @@ public sealed class MainViewModel : ViewModel
         _threadsNumParallel = MinThreadsNumParallel;
         _isSolvingProcessEnded = true;
 
-        AddDataDimensionCommand = new RelayCommand<object?>
+        AddDataDimensionCommand = new RelayCommand
             (OnAddDataDimensionCommandExecute, CanAddDataDimensionCommandExecute, this);
-        RemoveDataDimensionCommand = new RelayCommand<object?>
+        RemoveDataDimensionCommand = new RelayCommand
             (OnRemoveDataDimensionCommandExecute, CanRemoveDataDimensionCommandExecute, this);
-        ResetDataCommand = new RelayCommand<object?>
+        ResetDataCommand = new RelayCommand
             (OnResetDataCommandExecute, CanResetDataCommandExecute, this);
-        LoadFromFilesCommand = new RelayCommand<object?>
+        LoadFromFilesCommand = new RelayCommand
             (OnLoadFromFilesCommandExecute, CanLoadFromFilesCommandExecute, this);
-        AddThreadParallelCommand = new RelayCommand<object?>
+        AddThreadParallelCommand = new RelayCommand
             (OnAddThreadParallelCommandExecute, CanAddThreadParallelCommandExecute, this);
-        RemoveThreadParallelCommand = new RelayCommand<object?>
+        RemoveThreadParallelCommand = new RelayCommand
             (OnRemoveThreadParallelCommandExecute, CanRemoveThreadParallelCommandExecute, this);
-        SolveSerialCommand = new RelayCommand<object?>
+        SolveSerialCommand = new RelayCommand
             (OnSolveSerialCommandExecute, CanSolveSerialCommandExecute, this);
-        SolveParallelCommand = new RelayCommand<object?>
+        SolveParallelCommand = new RelayCommand
             (OnSolveParallelCommandExecute, CanSolveParallelCommandExecute, this);
 
         _eventBusService.Subscribe<SoleLoadedIntegrationEvent>(OnSoleLoadedIntegrationEvent);

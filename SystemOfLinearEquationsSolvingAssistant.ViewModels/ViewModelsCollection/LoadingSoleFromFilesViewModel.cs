@@ -51,11 +51,11 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
         set => Set(ref _isParsingProcessEnded, value);
     }
 
-    public RelayCommand<object?> OpenFileMatrixACommand { get; }
+    public RelayCommand OpenFileMatrixACommand { get; }
 
-    public RelayCommand<object?> OpenFileVectorBCommand { get; }
+    public RelayCommand OpenFileVectorBCommand { get; }
 
-    public RelayCommand<object?> ConfirmLoadOptionsCommand { get; }
+    public RelayCommand ConfirmLoadOptionsCommand { get; }
 
     public LoadingSoleFromFilesViewModel(ISoleParser soleParser, IEventBusService eventBusService,
         IViewManagerService viewManagerService, IUserDialogService userDialogService)
@@ -87,11 +87,11 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
         _variableSeparator = string.Empty;
         _isParsingProcessEnded = true;
 
-        OpenFileMatrixACommand = new RelayCommand<object?>
+        OpenFileMatrixACommand = new RelayCommand
             (OnOpenFileMatrixACommandExecute, CanOpenFileMatrixACommandExecute, this);
-        OpenFileVectorBCommand = new RelayCommand<object?>
+        OpenFileVectorBCommand = new RelayCommand
             (OnOpenFileVectorBCommandExecute, CanOpenFileVectorBCommandExecute, this);
-        ConfirmLoadOptionsCommand = new RelayCommand<object?>
+        ConfirmLoadOptionsCommand = new RelayCommand
             (OnConfirmLoadOptionsCommandExecute, CanConfirmLoadOptionsCommandExecute, this);
     }
 
