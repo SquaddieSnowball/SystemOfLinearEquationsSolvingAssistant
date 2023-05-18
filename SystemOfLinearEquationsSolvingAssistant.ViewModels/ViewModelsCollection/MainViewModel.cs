@@ -23,6 +23,7 @@ public sealed class MainViewModel : ViewModel
     private readonly IUserDialogService _userDialogService;
 
     private int _currentDataDimension;
+    private string _title;
     private DataTable _dataTableMatrixA;
     private DataTable _dataTableVectorB;
     private string _solutionSet;
@@ -34,6 +35,12 @@ public sealed class MainViewModel : ViewModel
     private TimeSpan _elapsedTimeSerial;
     private TimeSpan _elapsedTimeParallel;
     private bool _isSolvingProcessEnded;
+
+    public string Title
+    {
+        get => _title;
+        set => Set(ref _title, value);
+    }
 
     public DataTable DataTableMatrixA
     {
@@ -147,6 +154,7 @@ public sealed class MainViewModel : ViewModel
         _viewManagerService = viewManagerService;
         _userDialogService = userDialogService;
 
+        _title = "System of linear equations solving assistant";
         _dataTableMatrixA = new DataTable();
         _dataTableVectorB = new DataTable();
         _solutionSet = "Click \"Solve\" to display the solution set.";
@@ -246,8 +254,8 @@ public sealed class MainViewModel : ViewModel
         IsSolvingProcessEnded = false;
 
         Sole sole = GetSoleFromData();
-        SoleSolvingAlgorithmSerial solvingAlgorithm = _soleSolvingAlgorithmNameService
-            .GetAlgorithmByNameSerial(algorithmName!);
+        SoleSolvingAlgorithmSerial solvingAlgorithm =
+            _soleSolvingAlgorithmNameService.GetAlgorithmByNameSerial(algorithmName!);
 
         SoleSolvingResults solvingResults = await _soleSolver.SolveSerialAsync(sole, solvingAlgorithm);
 
@@ -267,8 +275,8 @@ public sealed class MainViewModel : ViewModel
         IsSolvingProcessEnded = false;
 
         Sole sole = GetSoleFromData();
-        SoleSolvingAlgorithmParallel solvingAlgorithm = _soleSolvingAlgorithmNameService
-            .GetAlgorithmByNameParallel(algorithmName!);
+        SoleSolvingAlgorithmParallel solvingAlgorithm =
+            _soleSolvingAlgorithmNameService.GetAlgorithmByNameParallel(algorithmName!);
 
         SoleSolvingResults solvingResults = await _soleSolver.SolveParallelAsync(sole, solvingAlgorithm, ThreadsNumParallel);
 
@@ -399,11 +407,12 @@ public sealed class MainViewModel : ViewModel
         double[] b = new double[_currentDataDimension];
 
         for (var i = 0; i < _currentDataDimension; i++)
+        {
             for (var j = 0; j < _currentDataDimension; j++)
                 a[i, j] = (double)DataTableMatrixA.Rows[i][j];
 
-        for (var i = 0; i < _currentDataDimension; i++)
             b[i] = (double)DataTableVectorB.Rows[i][0];
+        }
 
         return new Sole(a, b);
     }

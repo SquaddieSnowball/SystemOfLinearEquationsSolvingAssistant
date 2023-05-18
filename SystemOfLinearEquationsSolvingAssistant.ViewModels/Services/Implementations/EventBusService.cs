@@ -46,7 +46,7 @@ public sealed class EventBusService : IEventBusService
             if (_subscribtions.TryGetValue(integrationEvent.GetType(), out Delegate? currentIntegrationEventHandlers) is false)
                 return;
 
-            _ = (currentIntegrationEventHandlers?.DynamicInvoke(integrationEvent));
+            _ = currentIntegrationEventHandlers?.DynamicInvoke(integrationEvent);
         }
     }
 }

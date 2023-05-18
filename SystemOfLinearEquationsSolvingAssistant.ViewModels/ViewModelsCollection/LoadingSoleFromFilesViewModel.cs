@@ -15,11 +15,18 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
     private readonly IViewManagerService _viewManagerService;
     private readonly IUserDialogService _userDialogService;
 
+    private string _title;
     private string _filePathMatrixA;
     private string _filePathVectorB;
     private string _decimalSeparator;
     private string _variableSeparator;
     private bool _isParsingProcessEnded;
+
+    public string Title
+    {
+        get => _title;
+        set => Set(ref _title, value);
+    }
 
     public string FilePathMatrixA
     {
@@ -81,6 +88,7 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
         _viewManagerService = viewManagerService;
         _userDialogService = userDialogService;
 
+        _title = "Loading a system of linear equations from files";
         _filePathMatrixA = string.Empty;
         _filePathVectorB = string.Empty;
         _decimalSeparator = string.Empty;
@@ -138,10 +146,10 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
         }
 
         _eventBusService.Publish(new SoleLoadedIntegrationEvent(sole));
-        _viewManagerService.CloseView("LoadingSoleFromFilesWindow");
+        _viewManagerService.CloseView("LoadingSoleFromFiles");
     }
 
     private bool CanConfirmLoadOptionsCommandExecute() =>
-        !(string.IsNullOrEmpty(FilePathMatrixA) || string.IsNullOrEmpty(FilePathVectorB) ||
-        string.IsNullOrEmpty(DecimalSeparator) || string.IsNullOrEmpty(VariableSeparator));
+        !((string.IsNullOrEmpty(FilePathMatrixA) is true) || (string.IsNullOrEmpty(FilePathVectorB) is true) ||
+        (string.IsNullOrEmpty(DecimalSeparator) is true) || (string.IsNullOrEmpty(VariableSeparator) is true));
 }
