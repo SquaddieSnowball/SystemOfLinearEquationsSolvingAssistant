@@ -28,8 +28,8 @@ public sealed class MainViewModel : ViewModel
     private string _solutionSet;
     private string[] _algorithmNamesSerial;
     private string[] _algorithmNamesParallel;
-    private int _algorithmNamesSerialSelectedIndex;
-    private int _algorithmNamesParallelSelectedIndex;
+    private string _algorithmNamesSerialSelectedItem;
+    private string _algorithmNamesParallelSelectedItem;
     private int _threadsNumParallel;
     private TimeSpan _elapsedTimeSerial;
     private TimeSpan _elapsedTimeParallel;
@@ -65,16 +65,16 @@ public sealed class MainViewModel : ViewModel
         set => Set(ref _algorithmNamesParallel, value);
     }
 
-    public int AlgorithmNamesSerialSelectedIndex
+    public string AlgorithmNamesSerialSelectedItem
     {
-        get => _algorithmNamesSerialSelectedIndex;
-        set => Set(ref _algorithmNamesSerialSelectedIndex, value);
+        get => _algorithmNamesSerialSelectedItem;
+        set => Set(ref _algorithmNamesSerialSelectedItem, value);
     }
 
-    public int AlgorithmNamesParallelSelectedIndex
+    public string AlgorithmNamesParallelSelectedItem
     {
-        get => _algorithmNamesParallelSelectedIndex;
-        set => Set(ref _algorithmNamesParallelSelectedIndex, value);
+        get => _algorithmNamesParallelSelectedItem;
+        set => Set(ref _algorithmNamesParallelSelectedItem, value);
     }
 
     public int ThreadsNumParallel
@@ -101,21 +101,21 @@ public sealed class MainViewModel : ViewModel
         set => Set(ref _isSolvingProcessEnded, value);
     }
 
-    public RelayCommand AddDataDimensionCommand { get; }
+    public RelayCommandGeneric<int> AddDataDimensionsCommand { get; }
 
-    public RelayCommand RemoveDataDimensionCommand { get; }
+    public RelayCommandGeneric<int> RemoveDataDimensionsCommand { get; }
 
-    public RelayCommand ResetDataCommand { get; }
+    public RelayCommandGeneric<int> ResetDataCommand { get; }
 
     public RelayCommand LoadFromFilesCommand { get; }
 
-    public RelayCommand AddThreadParallelCommand { get; }
+    public RelayCommandGeneric<int> AddThreadsParallelCommand { get; }
 
-    public RelayCommand RemoveThreadParallelCommand { get; }
+    public RelayCommandGeneric<int> RemoveThreadsParallelCommand { get; }
 
-    public RelayCommand SolveSerialCommand { get; }
+    public RelayCommandGeneric<string> SolveSerialCommand { get; }
 
-    public RelayCommand SolveParallelCommand { get; }
+    public RelayCommandGeneric<string> SolveParallelCommand { get; }
 
     public MainViewModel(ISoleSolver soleSolver, IEventBusService eventBusService,
         ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService, IViewManagerService viewManagerService,
@@ -152,63 +152,102 @@ public sealed class MainViewModel : ViewModel
         _solutionSet = "Click \"Solve\" to display the solution set.";
         _algorithmNamesSerial = _soleSolvingAlgorithmNameService.AlgorithmNamesSerial.ToArray();
         _algorithmNamesParallel = _soleSolvingAlgorithmNameService.AlgorithmNamesParallel.ToArray();
+        _algorithmNamesSerialSelectedItem = _algorithmNamesSerial.First();
+        _algorithmNamesParallelSelectedItem = _algorithmNamesParallel.First();
         _threadsNumParallel = MinThreadsNumParallel;
         _isSolvingProcessEnded = true;
 
-        AddDataDimensionCommand = new RelayCommand
-            (OnAddDataDimensionCommandExecute, CanAddDataDimensionCommandExecute, this);
-        RemoveDataDimensionCommand = new RelayCommand
-            (OnRemoveDataDimensionCommandExecute, CanRemoveDataDimensionCommandExecute, this);
-        ResetDataCommand = new RelayCommand
+        AddDataDimensionsCommand = new RelayCommandGeneric<int>
+            (OnAddDataDimensionsCommandExecute, CanAddDataDimensionsCommandExecute, this);
+        RemoveDataDimensionsCommand = new RelayCommandGeneric<int>
+            (OnRemoveDataDimensionsCommandExecute, CanRemoveDataDimensionsCommandExecute, this);
+        ResetDataCommand = new RelayCommandGeneric<int>
             (OnResetDataCommandExecute, CanResetDataCommandExecute, this);
         LoadFromFilesCommand = new RelayCommand
             (OnLoadFromFilesCommandExecute, CanLoadFromFilesCommandExecute, this);
-        AddThreadParallelCommand = new RelayCommand
-            (OnAddThreadParallelCommandExecute, CanAddThreadParallelCommandExecute, this);
-        RemoveThreadParallelCommand = new RelayCommand
-            (OnRemoveThreadParallelCommandExecute, CanRemoveThreadParallelCommandExecute, this);
-        SolveSerialCommand = new RelayCommand
+        AddThreadsParallelCommand = new RelayCommandGeneric<int>
+            (OnAddThreadsParallelCommandExecute, CanAddThreadsParallelCommandExecute, this);
+        RemoveThreadsParallelCommand = new RelayCommandGeneric<int>
+            (OnRemoveThreadsParallelCommandExecute, CanRemoveThreadsParallelCommandExecute, this);
+        SolveSerialCommand = new RelayCommandGeneric<string>
             (OnSolveSerialCommandExecute, CanSolveSerialCommandExecute, this);
-        SolveParallelCommand = new RelayCommand
+        SolveParallelCommand = new RelayCommandGeneric<string>
             (OnSolveParallelCommandExecute, CanSolveParallelCommandExecute, this);
 
         _eventBusService.Subscribe<SoleLoadedIntegrationEvent>(OnSoleLoadedIntegrationEvent);
 
-        ResetData();
+        ResetData(5);
     }
 
-    private void OnAddDataDimensionCommandExecute() => ChangeDataDimension(1, true);
+    private void OnAddDataDimensionsCommandExecute(int dimensionsCount)
+    {
+        if (CanAddDataDimensionsCommandExecute(dimensionsCount) is false)
+            return;
 
-    private bool CanAddDataDimensionCommandExecute() => _currentDataDimension is not MaxDataDimension;
+        ChangeDataDimension(dimensionsCount, true);
+    }
 
-    private void OnRemoveDataDimensionCommandExecute() => ChangeDataDimension(1, false);
+    private bool CanAddDataDimensionsCommandExecute(int dimensionsCount) =>
+        !((dimensionsCount < 1) || ((_currentDataDimension + dimensionsCount) > MaxDataDimension));
 
-    private bool CanRemoveDataDimensionCommandExecute() => _currentDataDimension is not MinDataDimension;
+    private void OnRemoveDataDimensionsCommandExecute(int dimensionsCount)
+    {
+        if (CanRemoveDataDimensionsCommandExecute(dimensionsCount) is false)
+            return;
 
-    private void OnResetDataCommandExecute() => ResetData();
+        ChangeDataDimension(dimensionsCount, false);
+    }
 
-    private bool CanResetDataCommandExecute() => true;
+    private bool CanRemoveDataDimensionsCommandExecute(int dimensionsCount) =>
+        !((dimensionsCount < 1) || ((_currentDataDimension - dimensionsCount) < MinDataDimension));
 
-    private void OnLoadFromFilesCommandExecute() =>
-        _viewManagerService.ShowView("LoadingSoleFromFiles", "Main", true);
+    private void OnResetDataCommandExecute(int dimensionsCount)
+    {
+        if (CanResetDataCommandExecute(dimensionsCount) is false)
+            return;
+
+        ResetData(dimensionsCount);
+    }
+
+    private bool CanResetDataCommandExecute(int dimensionsCount) =>
+        dimensionsCount is >= MinDataDimension and <= MaxDataDimension;
+
+    private void OnLoadFromFilesCommandExecute() => _viewManagerService.ShowView("LoadingSoleFromFiles", "Main", true);
 
     private bool CanLoadFromFilesCommandExecute() => true;
 
-    private void OnAddThreadParallelCommandExecute() => ThreadsNumParallel++;
-
-    private bool CanAddThreadParallelCommandExecute() => ThreadsNumParallel is not MaxThreadsNumParallel;
-
-    private void OnRemoveThreadParallelCommandExecute() => ThreadsNumParallel--;
-
-    private bool CanRemoveThreadParallelCommandExecute() => ThreadsNumParallel is not MinThreadsNumParallel;
-
-    private async void OnSolveSerialCommandExecute()
+    private void OnAddThreadsParallelCommandExecute(int threadsNum)
     {
+        if (CanAddThreadsParallelCommandExecute(threadsNum) is false)
+            return;
+
+        ThreadsNumParallel += threadsNum;
+    }
+
+    private bool CanAddThreadsParallelCommandExecute(int threadsNum) =>
+        !((threadsNum < 1) || ((ThreadsNumParallel + threadsNum) > MaxThreadsNumParallel));
+
+    private void OnRemoveThreadsParallelCommandExecute(int threadsNum)
+    {
+        if (CanRemoveThreadsParallelCommandExecute(threadsNum) is false)
+            return;
+
+        ThreadsNumParallel -= threadsNum;
+    }
+
+    private bool CanRemoveThreadsParallelCommandExecute(int threadsNum) =>
+        !((threadsNum < 1) || ((ThreadsNumParallel - threadsNum) < MinThreadsNumParallel));
+
+    private async void OnSolveSerialCommandExecute(string? algorithmName)
+    {
+        if (CanSolveSerialCommandExecute(algorithmName) is false)
+            return;
+
         IsSolvingProcessEnded = false;
 
         Sole sole = GetSoleFromData();
         SoleSolvingAlgorithmSerial solvingAlgorithm = _soleSolvingAlgorithmNameService
-            .GetAlgorithmByNameSerial(AlgorithmNamesSerial[AlgorithmNamesSerialSelectedIndex]);
+            .GetAlgorithmByNameSerial(algorithmName!);
 
         SoleSolvingResults solvingResults = await _soleSolver.SolveSerialAsync(sole, solvingAlgorithm);
 
@@ -218,16 +257,18 @@ public sealed class MainViewModel : ViewModel
         IsSolvingProcessEnded = true;
     }
 
-    private bool CanSolveSerialCommandExecute() =>
-        (AlgorithmNamesSerialSelectedIndex >= 0) && (AlgorithmNamesSerialSelectedIndex < AlgorithmNamesSerial.Length);
+    private bool CanSolveSerialCommandExecute(string? algorithmName) => AlgorithmNamesSerial.Contains(algorithmName);
 
-    private async void OnSolveParallelCommandExecute()
+    private async void OnSolveParallelCommandExecute(string? algorithmName)
     {
+        if (CanSolveParallelCommandExecute(algorithmName) is false)
+            return;
+
         IsSolvingProcessEnded = false;
 
         Sole sole = GetSoleFromData();
         SoleSolvingAlgorithmParallel solvingAlgorithm = _soleSolvingAlgorithmNameService
-            .GetAlgorithmByNameParallel(AlgorithmNamesParallel[AlgorithmNamesParallelSelectedIndex]);
+            .GetAlgorithmByNameParallel(algorithmName!);
 
         SoleSolvingResults solvingResults = await _soleSolver.SolveParallelAsync(sole, solvingAlgorithm, ThreadsNumParallel);
 
@@ -237,8 +278,7 @@ public sealed class MainViewModel : ViewModel
         IsSolvingProcessEnded = true;
     }
 
-    private bool CanSolveParallelCommandExecute() =>
-        (AlgorithmNamesParallelSelectedIndex >= 0) && (AlgorithmNamesParallelSelectedIndex < AlgorithmNamesParallel.Length);
+    private bool CanSolveParallelCommandExecute(string? algorithmName) => AlgorithmNamesParallel.Contains(algorithmName);
 
     private void OnSoleLoadedIntegrationEvent(SoleLoadedIntegrationEvent soleLoadedIntegrationEvent)
     {
@@ -308,10 +348,10 @@ public sealed class MainViewModel : ViewModel
         DataTableVectorB = dataTableVectorB;
     }
 
-    private void ChangeDataDimension(int dimensionCount, bool isExpanding)
+    private void ChangeDataDimension(int dimensionsCount, bool isExpanding)
     {
-        if (((isExpanding is true) && ((_currentDataDimension + dimensionCount) > MaxDataDimension)) ||
-            ((isExpanding is false) && ((_currentDataDimension - dimensionCount) < MinDataDimension)))
+        if (((isExpanding is true) && ((_currentDataDimension + dimensionsCount) > MaxDataDimension)) ||
+            ((isExpanding is false) && ((_currentDataDimension - dimensionsCount) < MinDataDimension)))
             return;
 
         DataTable dataTableMatrixA = DataTableMatrixA.Copy();
@@ -319,7 +359,7 @@ public sealed class MainViewModel : ViewModel
 
         if (isExpanding is true)
         {
-            for (var i = 0; i < dimensionCount; i++)
+            for (var i = 0; i < dimensionsCount; i++)
             {
                 _currentDataDimension++;
 
@@ -332,7 +372,7 @@ public sealed class MainViewModel : ViewModel
         }
         else
         {
-            for (var i = 0; i < dimensionCount; i++)
+            for (var i = 0; i < dimensionsCount; i++)
             {
                 _currentDataDimension--;
 
@@ -347,10 +387,10 @@ public sealed class MainViewModel : ViewModel
         DataTableVectorB = dataTableVectorB;
     }
 
-    private void ResetData()
+    private void ResetData(int dimensionsCount)
     {
         ClearData();
-        ChangeDataDimension(4, true);
+        ChangeDataDimension(dimensionsCount - 1, true);
     }
 
     private Sole GetSoleFromData()

@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         xmlns:vm="clr-namespace:SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection;assembly=SystemOfLinearEquationsSolvingAssistant.ViewModels"
         xmlns:c="clr-namespace:SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Extensions.Controls"
         mc:Ignorable="d"
@@ -53,16 +54,28 @@
                             Margin="0,7,0,0">
                     <Button Content="+"
                             Style="{StaticResource SquareButtonStyle}"
-                            Command="{Binding AddDataDimensionCommand}"
-                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                            Command="{Binding AddDataDimensionsCommand}"
+                            IsEnabled="{Binding IsSolvingProcessEnded}">
+                        <Button.CommandParameter>
+                            <sys:Int32>1</sys:Int32>
+                        </Button.CommandParameter>
+                    </Button>
                     <Button Content="-"
                             Style="{StaticResource SquareButtonStyle}"
-                            Command="{Binding RemoveDataDimensionCommand}"
-                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                            Command="{Binding RemoveDataDimensionsCommand}"
+                            IsEnabled="{Binding IsSolvingProcessEnded}">
+                        <Button.CommandParameter>
+                            <sys:Int32>1</sys:Int32>
+                        </Button.CommandParameter>
+                    </Button>
                     <Button Content="Reset"
                             Style="{StaticResource DefaultButtonStyle}"
                             Command="{Binding ResetDataCommand}"
-                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                            IsEnabled="{Binding IsSolvingProcessEnded}">
+                        <Button.CommandParameter>
+                            <sys:Int32>5</sys:Int32>
+                        </Button.CommandParameter>
+                    </Button>
                     <Button Content="Load from files"
                             Style="{StaticResource DefaultButtonStyle}"
                             Command="{Binding LoadFromFilesCommand}"
@@ -108,10 +121,11 @@
                                        Text="Algorithm"/>
                             <ComboBox Grid.Row="1"
                                       ItemsSource="{Binding AlgorithmNamesSerial}"
-                                      SelectedIndex="{Binding AlgorithmNamesSerialSelectedIndex}"
+                                      SelectedItem="{Binding AlgorithmNamesSerialSelectedItem}"
                                       Width="200"/>
                         </Grid>
                         <Button Content="Solve"
+                                CommandParameter="{Binding AlgorithmNamesSerialSelectedItem}"
                                 Command="{Binding SolveSerialCommand}"/>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -136,9 +150,8 @@
                             <TextBlock Grid.Row="0"
                                        Text="Algorithm"/>
                             <ComboBox Grid.Row="1"
-                                      Style="{StaticResource DefaultComboBoxStyle}"
                                       ItemsSource="{Binding AlgorithmNamesParallel}"
-                                      SelectedIndex="{Binding AlgorithmNamesParallelSelectedIndex}"
+                                      SelectedItem="{Binding AlgorithmNamesParallelSelectedItem}"
                                       Width="142.5"/>
                         </Grid>
                         <Grid>
@@ -159,15 +172,24 @@
                                 <StackPanel Grid.Column="1"
                                             Style="{StaticResource UpDownStackPanelStyle}">
                                     <Button Style="{StaticResource UpButtonStyle}"
-                                            Command="{Binding AddThreadParallelCommand}"
-                                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                                            Command="{Binding AddThreadsParallelCommand}"
+                                            IsEnabled="{Binding IsSolvingProcessEnded}">
+                                        <Button.CommandParameter>
+                                            <sys:Int32>1</sys:Int32>
+                                        </Button.CommandParameter>
+                                    </Button>
                                     <Button Style="{StaticResource DownButtonStyle}"
-                                            Command="{Binding RemoveThreadParallelCommand}"
-                                            IsEnabled="{Binding IsSolvingProcessEnded}"/>
+                                            Command="{Binding RemoveThreadsParallelCommand}"
+                                            IsEnabled="{Binding IsSolvingProcessEnded}">
+                                        <Button.CommandParameter>
+                                            <sys:Int32>1</sys:Int32>
+                                        </Button.CommandParameter>
+                                    </Button>
                                 </StackPanel>
                             </Grid>
                         </Grid>
                         <Button Content="Solve"
+                                CommandParameter="{Binding AlgorithmNamesParallelSelectedItem}"
                                 Command="{Binding SolveParallelCommand}"/>
                         <Grid>
                             <Grid.RowDefinitions>
