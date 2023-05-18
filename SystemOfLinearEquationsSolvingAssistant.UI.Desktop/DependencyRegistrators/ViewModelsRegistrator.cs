@@ -2,7 +2,7 @@
 using SystemOfLinearEquationsSolvingAssistant.Dependencies;
 using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection;
 
-namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.ViewModels;
+namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.DependencyRegistrators;
 
 internal static class ViewModelsRegistrator
 {

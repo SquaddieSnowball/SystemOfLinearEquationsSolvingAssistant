@@ -2,7 +2,7 @@
 using SystemOfLinearEquationsSolvingAssistant.Dependencies;
 using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views.Windows;
 
-namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views;
+namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.DependencyRegistrators;
 
 internal static class ViewsRegistrator
 {

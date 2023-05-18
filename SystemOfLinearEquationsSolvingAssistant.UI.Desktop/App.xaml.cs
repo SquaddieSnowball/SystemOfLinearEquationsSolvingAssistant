@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using SystemOfLinearEquationsSolvingAssistant.Dependencies;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.ViewModels;
-using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views;
+using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.DependencyRegistrators;
 using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop;
@@ -20,6 +18,6 @@ public partial class App : Application
         ViewModelsRegistrator.Register();
         ViewsRegistrator.Register();
 
-        DependenciesContainer.Resolve<IViewManagerService>()!.ShowView("Main");
+        DependenciesContainer.Resolve<IViewManagerService>()?.ShowView("Main");
     }
 }
