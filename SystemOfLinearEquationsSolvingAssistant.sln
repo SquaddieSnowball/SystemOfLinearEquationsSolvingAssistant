@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.Dependencies", "SystemOfLinearEquationsSolvingAssistant.Dependencies\SystemOfLinearEquationsSolvingAssistant.Dependencies.csproj", "{A7EB6971-D027-4646-AC7D-9D3FE08A343A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemOfLinearEquationsSolvingAssistant.ViewModels", "SystemOfLinearEquationsSolvingAssistant.ViewModels\SystemOfLinearEquationsSolvingAssistant.ViewModels.csproj", "{4B81E1DF-0691-4FA4-A5DB-401BD7827926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.ViewModels", "SystemOfLinearEquationsSolvingAssistant.ViewModels\SystemOfLinearEquationsSolvingAssistant.ViewModels.csproj", "{4B81E1DF-0691-4FA4-A5DB-401BD7827926}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemOfLinearEquationsSolvingAssistant.UI.Web", "SystemOfLinearEquationsSolvingAssistant.UI.Web\SystemOfLinearEquationsSolvingAssistant.UI.Web.csproj", "{B15C101C-008B-463A-B3F9-CDE57CC5F42E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4B81E1DF-0691-4FA4-A5DB-401BD7827926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B81E1DF-0691-4FA4-A5DB-401BD7827926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B81E1DF-0691-4FA4-A5DB-401BD7827926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B15C101C-008B-463A-B3F9-CDE57CC5F42E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B15C101C-008B-463A-B3F9-CDE57CC5F42E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B15C101C-008B-463A-B3F9-CDE57CC5F42E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B15C101C-008B-463A-B3F9-CDE57CC5F42E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
