@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
+    <!--@ <title #content="${Title}"/> @-->
+</head>
+
+<body>
+    <div id="main-container" class="grid-container-div">
+        <fieldset class="default-fieldset">
+            <legend>Input</legend>
+            <div id="input-container" class="grid-container-div">
+                <div id="input-data-container" class="grid-container-div">
+                    <fieldset class="default-fieldset input-data-fieldset">
+                        <legend>Matrix A</legend>
+                        <!--@ &DataGrid id="input-data-matrix-a" class="default-table"
+                            #numc="true" #numr="true" #items="${DataTableMatrixA}"
+                            #h-class="default-th" #c-class="default-td input-data-td" #c-contenteditable=""& @-->
+                    </fieldset>
+                    <fieldset class="default-fieldset input-data-fieldset">
+                        <legend>Vector B</legend>
+                        <!--@ &DataGrid id="input-data-vector-b" class="default-table"
+                            #numc="true" #numr="true" #items="${DataTableVectorB}"
+                            #h-class="default-th" #c-class="default-td input-data-td" #c-contenteditable=""& @-->
+                    </fieldset>
+                </div>
+                <div id="input-actions-container" class="flex-container-div">
+                    <button id="add-data-dimension" class="default-button" type="button"
+                        onclick="changeDataDimension(1, true)">+</button>
+                    <button id="remove-data-dimension" class="default-button" type="button"
+                        onclick="changeDataDimension(1, false)">-</button>
+                    <button id="reset-data" class="default-button" type="button" onclick="resetData(5)">Reset</button>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="default-fieldset">
+            <legend>Solution options</legend>
+            <div id="solution-options-container" class="flex-container-div">
+                <fieldset class="default-fieldset solution-option-fieldset">
+                    <legend>Serial solution</legend>
+                    <div class="flex-container-div solution-option-container-div">
+                        <div class="grid-container-div label-container-div">
+                            <label class="default-label top-label" for="algorithm-names-serial">Algorithm</label>
+                            <!--@ &ComboBox id="algorithm-names-serial" class="default-select"
+                                #selected="${AlgorithmNamesSerialSelectedItem}" #items="${AlgorithmNamesSerial}"& @-->
+                        </div>
+                        <button id="solve-serial" class="default-button bottom-button" type="button"
+                            onclick="solveSerial()">Solve</button>
+                        <div class="grid-container-div label-container-div">
+                            <label class="default-label top-label" for="elapsed-time-serial">Elapsed time</label>
+                            <!--@ <input id="elapsed-time-serial" class="default-input elapsed-time-input"
+                                readonly="" value="${ElapsedTimeSerial}"> @-->
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset class="default-fieldset solution-option-fieldset">
+                    <legend>Parallel solution</legend>
+                    <div class="flex-container-div solution-option-container-div">
+                        <div class="grid-container-div label-container-div">
+                            <label class="default-label top-label" for="algorithm-names-parallel">Algorithm</label>
+                            <!--@ &ComboBox id="algorithm-names-parallel" class="default-select"
+                                #selected="${AlgorithmNamesParallelSelectedItem}" #items="${AlgorithmNamesParallel}"& @-->
+                        </div>
+                        <div class="grid-container-div label-container-div">
+                            <label class="default-label top-label" for="threads-num-parallel">Threads</label>
+                            <!--@ <input id="threads-num-parallel" class="default-input"
+                                type="number" min="2" max="99" value="${ThreadsNumParallel}"> @-->
+                        </div>
+                        <button id="solve-parallel" class="default-button bottom-button" type="button"
+                            onclick="solveParallel()">Solve</button>
+                        <div class="grid-container-div label-container-div">
+                            <label class="default-label top-label" for="elapsed-time-parallel">Elapsed time</label>
+                            <!--@ <input id="elapsed-time-parallel" class="default-input elapsed-time-input"
+                                readonly="" value="${ElapsedTimeParallel}"> @-->
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </fieldset>
+        <fieldset class="default-fieldset">
+            <legend>Solution set</legend>
+            <!--@ <textarea id="solution-set" class="default-textarea content-textarea"
+                aria-label="label-for-solution-set" rows="4" readonly="" #content="${SolutionSet}"/> @-->
+        </fieldset>
+    </div>
+</body>
+
+</html>

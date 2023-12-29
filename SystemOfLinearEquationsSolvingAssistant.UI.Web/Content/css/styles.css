@@ -1,0 +1,200 @@
+::selection {
+    background: #707070;
+}
+
+:focus {
+    outline: 1px solid #707070;
+}
+
+body {
+    background-color: #1e1e1e;
+    color: #fafafa;
+    font: 12px "Fira Sans", sans-serif;
+}
+
+div.grid-container-div {
+    display: grid;
+    gap: 10px;
+}
+
+div.flex-container-div {
+    display: flex;
+    gap: 10px;
+}
+
+div.input-data-error-div {
+    padding: 3px;
+    border: 1.5px solid #ff0000;
+}
+
+div.label-container-div {
+    gap: 3px;
+}
+
+div.solution-option-container-div {
+    margin: 4px;
+    gap: 6px;
+}
+
+fieldset.default-fieldset {
+    padding: 10px;
+    border-color: #3d3d3d;
+}
+
+fieldset.input-data-fieldset {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+fieldset.solution-option-fieldset {
+    margin: 4px 3px;
+}
+
+table.default-table {
+    margin: 10px;
+    border: 1px solid #707070;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th.default-th {
+    padding: 9px 13px;
+    background-color: #2e2e2e;
+    font: inherit;
+}
+
+td.default-td {
+    cursor: default;
+    padding: 0px 4px;
+    border: 1px solid #707070;
+    background-color: #383838;
+    font: inherit;
+}
+
+td.input-data-td:focus {
+    outline: none;
+    background-color: #707070;
+}
+
+button.default-button {
+    height: max-content;
+    width: max-content;
+    padding: 4px;
+    border: 1px solid #707070;
+    background-color: #383838;
+    color: inherit;
+    font-size: inherit;
+}
+
+button.default-button:disabled {
+    background-color: #383838;
+    color: #898989;
+}
+
+button.default-button:hover {
+    background-color: #4d4d4d;
+}
+
+button.bottom-button {
+    align-self: flex-end;
+}
+
+label.default-label {
+    pointer-events: none;
+}
+
+label.top-label {
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+
+select.default-select {
+    padding: 3.2px;
+    border: 1px solid #707070;
+    background-color: #383838;
+    color: inherit;
+    font-size: inherit;
+}
+
+select.default-select:focus {
+    background-color: #3d3d3d;
+}
+
+select.default-select:hover {
+    background-color: #3d3d3d;
+}
+
+input.default-input {
+    padding: 4px 8px;
+    border: 1px solid #707070;
+    background-color: #383838;
+    color: inherit;
+    font-size: inherit;
+}
+
+input.elapsed-time-input {
+    width: 100px;
+}
+
+textarea.default-textarea {
+    border: 1px solid #707070;
+    background-color: #383838;
+    color: inherit;
+    font: inherit;
+    font-size: inherit;
+}
+
+textarea.content-textarea {
+    height: 100%;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+#main-container {
+    row-gap: 12px;
+}
+
+#input-container {
+    height: 100%;
+    grid-template-rows: auto max-content;
+}
+
+#input-data-container {
+    grid-template-columns: 0.7fr 0.3fr;
+    column-gap: 2px;
+}
+
+#input-actions-container {
+    justify-content: center;
+    margin: 2px;
+    gap: 6px;
+}
+
+#solution-options-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0px;
+}
+
+#add-data-dimension {
+    padding: 4px 7.3px;
+}
+
+#remove-data-dimension {
+    padding: 4px 8.8px;
+}
+
+#algorithm-names-serial {
+    width: 205px;
+}
+
+#algorithm-names-parallel {
+    width: 140px;
+}
+
+#threads-num-parallel {
+    width: 41px;
+}
