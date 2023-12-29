@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.BL", "SystemOfLinearEquationsSolvingAssistant.BL\SystemOfLinearEquationsSolvingAssistant.BL.csproj", "{740AFDE5-E15D-47A2-B260-773E2A1EC954}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{46E749EC-CFC5-4BA3-A2DC-A4CDE7ABF304}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.UI.Desktop", "SystemOfLinearEquationsSolvingAssistant.UI.Desktop\SystemOfLinearEquationsSolvingAssistant.UI.Desktop.csproj", "{ECCD047E-4670-451F-AEDE-2D6B59B5934B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.Dependencies", "src\SystemOfLinearEquationsSolvingAssistant.Dependencies\SystemOfLinearEquationsSolvingAssistant.Dependencies.csproj", "{C42882B5-8759-44C0-9672-12B3A2057A58}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.Dependencies", "SystemOfLinearEquationsSolvingAssistant.Dependencies\SystemOfLinearEquationsSolvingAssistant.Dependencies.csproj", "{A7EB6971-D027-4646-AC7D-9D3FE08A343A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.BL", "src\SystemOfLinearEquationsSolvingAssistant.BL\SystemOfLinearEquationsSolvingAssistant.BL.csproj", "{9153E6C1-2261-41D1-86B2-5F208DEF53D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.ViewModels", "SystemOfLinearEquationsSolvingAssistant.ViewModels\SystemOfLinearEquationsSolvingAssistant.ViewModels.csproj", "{4B81E1DF-0691-4FA4-A5DB-401BD7827926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.ViewModels", "src\SystemOfLinearEquationsSolvingAssistant.ViewModels\SystemOfLinearEquationsSolvingAssistant.ViewModels.csproj", "{412B155A-431F-4DCC-AEB2-6A7635FB6AB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemOfLinearEquationsSolvingAssistant.UI.Web", "SystemOfLinearEquationsSolvingAssistant.UI.Web\SystemOfLinearEquationsSolvingAssistant.UI.Web.csproj", "{B15C101C-008B-463A-B3F9-CDE57CC5F42E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.UI.Desktop", "src\SystemOfLinearEquationsSolvingAssistant.UI.Desktop\SystemOfLinearEquationsSolvingAssistant.UI.Desktop.csproj", "{7463D547-AA3D-407D-9988-AB990FF7DC01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOfLinearEquationsSolvingAssistant.UI.Web", "src\SystemOfLinearEquationsSolvingAssistant.UI.Web\SystemOfLinearEquationsSolvingAssistant.UI.Web.csproj", "{C40F76D4-ECC7-4DE8-961F-BA04E891A437}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,29 +21,36 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{740AFDE5-E15D-47A2-B260-773E2A1EC954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{740AFDE5-E15D-47A2-B260-773E2A1EC954}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{740AFDE5-E15D-47A2-B260-773E2A1EC954}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{740AFDE5-E15D-47A2-B260-773E2A1EC954}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECCD047E-4670-451F-AEDE-2D6B59B5934B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECCD047E-4670-451F-AEDE-2D6B59B5934B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECCD047E-4670-451F-AEDE-2D6B59B5934B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECCD047E-4670-451F-AEDE-2D6B59B5934B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A7EB6971-D027-4646-AC7D-9D3FE08A343A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A7EB6971-D027-4646-AC7D-9D3FE08A343A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A7EB6971-D027-4646-AC7D-9D3FE08A343A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A7EB6971-D027-4646-AC7D-9D3FE08A343A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B81E1DF-0691-4FA4-A5DB-401BD7827926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B81E1DF-0691-4FA4-A5DB-401BD7827926}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B81E1DF-0691-4FA4-A5DB-401BD7827926}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B81E1DF-0691-4FA4-A5DB-401BD7827926}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B15C101C-008B-463A-B3F9-CDE57CC5F42E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B15C101C-008B-463A-B3F9-CDE57CC5F42E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B15C101C-008B-463A-B3F9-CDE57CC5F42E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B15C101C-008B-463A-B3F9-CDE57CC5F42E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C42882B5-8759-44C0-9672-12B3A2057A58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42882B5-8759-44C0-9672-12B3A2057A58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42882B5-8759-44C0-9672-12B3A2057A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42882B5-8759-44C0-9672-12B3A2057A58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9153E6C1-2261-41D1-86B2-5F208DEF53D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9153E6C1-2261-41D1-86B2-5F208DEF53D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9153E6C1-2261-41D1-86B2-5F208DEF53D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9153E6C1-2261-41D1-86B2-5F208DEF53D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{412B155A-431F-4DCC-AEB2-6A7635FB6AB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{412B155A-431F-4DCC-AEB2-6A7635FB6AB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{412B155A-431F-4DCC-AEB2-6A7635FB6AB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{412B155A-431F-4DCC-AEB2-6A7635FB6AB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7463D547-AA3D-407D-9988-AB990FF7DC01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7463D547-AA3D-407D-9988-AB990FF7DC01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7463D547-AA3D-407D-9988-AB990FF7DC01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7463D547-AA3D-407D-9988-AB990FF7DC01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C40F76D4-ECC7-4DE8-961F-BA04E891A437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C40F76D4-ECC7-4DE8-961F-BA04E891A437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C40F76D4-ECC7-4DE8-961F-BA04E891A437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C40F76D4-ECC7-4DE8-961F-BA04E891A437}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C42882B5-8759-44C0-9672-12B3A2057A58} = {46E749EC-CFC5-4BA3-A2DC-A4CDE7ABF304}
+		{9153E6C1-2261-41D1-86B2-5F208DEF53D5} = {46E749EC-CFC5-4BA3-A2DC-A4CDE7ABF304}
+		{412B155A-431F-4DCC-AEB2-6A7635FB6AB1} = {46E749EC-CFC5-4BA3-A2DC-A4CDE7ABF304}
+		{7463D547-AA3D-407D-9988-AB990FF7DC01} = {46E749EC-CFC5-4BA3-A2DC-A4CDE7ABF304}
+		{C40F76D4-ECC7-4DE8-961F-BA04E891A437} = {46E749EC-CFC5-4BA3-A2DC-A4CDE7ABF304}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {16D73008-BCA7-4984-A9E3-3EBCB0BBDFE4}
