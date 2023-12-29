@@ -1,14 +1,14 @@
-﻿using SystemOfLinearEquationsSolvingAssistant.UI.Web.Entities.IntegrationEvents;
-using SystemOfLinearEquationsSolvingAssistant.UI.Web.Entities.IntegrationEvents.Entities;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
+﻿using SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Entities.EventBus.IntegrationEvents;
+using SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Entities.EventBus.IntegrationEvents.Entities;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Abstractions;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Implementations;
 
 internal sealed class HtmlUserDialogService : IUserDialogService
 {
-    private readonly IEventBusService _eventBusService;
+    private readonly IEventBus _eventBusService;
 
-    public HtmlUserDialogService(IEventBusService eventBusService)
+    public HtmlUserDialogService(IEventBus eventBusService)
     {
         if (eventBusService is null)
             throw new ArgumentNullException(nameof(eventBusService), "Event bus service must not be null.");

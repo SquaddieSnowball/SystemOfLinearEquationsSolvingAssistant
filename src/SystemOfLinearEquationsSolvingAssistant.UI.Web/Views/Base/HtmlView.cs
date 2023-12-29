@@ -1,6 +1,6 @@
 ﻿using SimpleHttpServer.Entities;
 using SimpleHttpServer.Services.Abstractions;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection.Base;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels.Base;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Views.Base;
 

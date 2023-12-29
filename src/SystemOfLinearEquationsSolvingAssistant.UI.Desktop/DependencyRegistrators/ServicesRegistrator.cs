@@ -1,12 +1,11 @@
-﻿using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Parsers.Implementations;
-using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Parsers;
-using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Solvers.Implementations;
-using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Solvers;
-using SystemOfLinearEquationsSolvingAssistant.Dependencies.Entities;
+﻿using SystemOfLinearEquationsSolvingAssistant.Dependencies.Entities;
 using SystemOfLinearEquationsSolvingAssistant.Dependencies;
 using SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
 using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Implementations;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
+using SystemOfLinearEquationsSolvingAssistant.BL.Services.Abstractions;
+using SystemOfLinearEquationsSolvingAssistant.BL.Services.Implementations.SoleParser;
+using SystemOfLinearEquationsSolvingAssistant.BL.Services.Implementations;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Abstractions;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.DependencyRegistrators;
 
@@ -19,11 +18,11 @@ internal static class ServicesRegistrator
         DependenciesContainer
             .Register<ISoleParser, SoleFileParser>(DependencyObjectLifetime.Transient);
         DependenciesContainer
-            .Register<IEventBusService, EventBusService>(DependencyObjectLifetime.Singleton);
+            .Register<IEventBus, EventBus>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
             .Register<ISoleSolvingAlgorithmNameService, SoleSolvingAlgorithmNameService>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
-            .Register<IViewManagerService, WpfViewManagerService>(DependencyObjectLifetime.Singleton);
+            .Register<IViewManager, WpfViewManager>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
             .Register<IUserDialogService, WpfUserDialogService>(DependencyObjectLifetime.Transient);
     }

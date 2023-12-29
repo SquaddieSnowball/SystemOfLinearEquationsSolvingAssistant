@@ -3,22 +3,22 @@ using SimpleHttpServer.Entities.Components;
 using System.Text;
 using System.Text.Json;
 using System.Windows.Input;
-using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
+using SystemOfLinearEquationsSolvingAssistant.BL.Entities;
 using SystemOfLinearEquationsSolvingAssistant.UI.Web.Views.Base;
-using SystemOfLinearEquationsSolvingAssistant.UI.Web.Views.Entities;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.Entities.IntegrationEvents;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
+using SystemOfLinearEquationsSolvingAssistant.UI.Web.Views.Entities.MainView;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Abstractions;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Entities.EventBus.IntegrationEvents;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Views;
 
 internal sealed class MainView : HtmlView
 {
-    private readonly IEventBusService _eventBusService;
+    private readonly IEventBus _eventBusService;
     private readonly ISoleSolvingAlgorithmNameService _soleSolvingAlgorithmNameService;
 
     public override string PagePath => "index.html";
 
-    public MainView(IEventBusService eventBusService, ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService)
+    public MainView(IEventBus eventBusService, ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService)
     {
         if (soleSolvingAlgorithmNameService is null)
         {

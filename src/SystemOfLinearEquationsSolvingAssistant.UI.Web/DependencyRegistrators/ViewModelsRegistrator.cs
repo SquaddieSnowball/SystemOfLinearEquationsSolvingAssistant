@@ -1,6 +1,6 @@
 ﻿using SystemOfLinearEquationsSolvingAssistant.Dependencies.Entities;
 using SystemOfLinearEquationsSolvingAssistant.Dependencies;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModelsCollection;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.DependencyRegistrators;
 

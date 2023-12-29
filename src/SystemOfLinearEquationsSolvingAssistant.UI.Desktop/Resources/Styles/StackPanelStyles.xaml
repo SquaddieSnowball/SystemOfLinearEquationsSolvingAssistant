@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:ap="clr-namespace:SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Extensions.AttachedProperties">
+                    xmlns:ap="clr-namespace:SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views.Extensions.AttachedProperties">
 
     <Style TargetType="StackPanel" x:Key="DefaultStackPanelStyle">
         <Setter Property="ap:PanelChildren.Margin" Value="3"/>

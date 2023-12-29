@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Abstractions;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
 

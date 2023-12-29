@@ -1,5 +1,5 @@
-﻿using SystemOfLinearEquationsSolvingAssistant.BL.SystemOfLinearEquationsSolving.Entities;
-using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Interfaces;
+﻿using SystemOfLinearEquationsSolvingAssistant.BL.Services.Entities.SoleSolver;
+using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Abstractions;
 
 namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Implementations;
 
