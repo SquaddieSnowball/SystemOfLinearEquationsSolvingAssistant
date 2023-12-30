@@ -6,14 +6,14 @@ namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Implementation
 
 internal sealed class HtmlViewManager : IViewManager
 {
-    private readonly IEventBus _eventBusService;
+    private readonly IEventBus _eventBus;
 
-    public HtmlViewManager(IEventBus eventBusService)
+    public HtmlViewManager(IEventBus eventBus)
     {
-        if (eventBusService is null)
-            throw new ArgumentNullException(nameof(eventBusService), "Event bus service must not be null.");
+        if (eventBus is null)
+            throw new ArgumentNullException(nameof(eventBus), "Event bus must not be null.");
 
-        _eventBusService = eventBusService;
+        _eventBus = eventBus;
     }
 
     public void ShowView(string viewName, string? ownerViewName = null, bool isDialogMode = false)
@@ -25,7 +25,7 @@ internal sealed class HtmlViewManager : IViewManager
             .AddData(nameof(ownerViewName), ownerViewName)
             .AddData(nameof(isDialogMode), isDialogMode);
 
-        _eventBusService.Publish(showViewIntegrationEvent);
+        _eventBus.Publish(showViewIntegrationEvent);
     }
 
     public void CloseView(string viewName)
@@ -35,6 +35,6 @@ internal sealed class HtmlViewManager : IViewManager
         _ = closeViewIntegrationEvent
             .AddData(nameof(viewName), viewName);
 
-        _eventBusService.Publish(closeViewIntegrationEvent);
+        _eventBus.Publish(closeViewIntegrationEvent);
     }
 }

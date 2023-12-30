@@ -65,25 +65,18 @@ internal sealed class HttpServerManager : IHttpServerManager
 
         foreach (Type viewType in viewTypes)
         {
-            try
-            {
-                Type viewModelType = viewModelTypes.First(t => t.Name.Remove(t.Name.LastIndexOf("ViewModel"))
-                    .Equals(viewType.Name.Remove(viewType.Name.LastIndexOf("View")), StringComparison.Ordinal) is true);
+            Type viewModelType = viewModelTypes.First(t => t.Name.Remove(t.Name.LastIndexOf("ViewModel"))
+                .Equals(viewType.Name.Remove(viewType.Name.LastIndexOf("View")), StringComparison.Ordinal) is true);
 
-                view = (HtmlView)DependenciesContainer.Resolve(viewType)!;
-                viewModel = (ViewModel)DependenciesContainer.Resolve(viewModelType)!;
+            view = (HtmlView)DependenciesContainer.Resolve(viewType)!;
+            viewModel = (ViewModel)DependenciesContainer.Resolve(viewModelType)!;
 
-                view.ViewModel = viewModel;
-                view.HttpServerResponseGenerator = _httpServer.ResponseGenerator;
-                view.RelinkRequest += (_, _) => _htmlViewLinker.Link(view, Path.Combine(PagesPath, view.PagePath));
-                _htmlViewLinker.Link(view, Path.Combine(PagesPath, view.PagePath));
+            view.ViewModel = viewModel;
+            view.HttpServerResponseGenerator = _httpServer.ResponseGenerator;
+            view.RelinkRequest += (_, _) => _htmlViewLinker.Link(view, Path.Combine(PagesPath, view.PagePath));
+            _htmlViewLinker.Link(view, Path.Combine(PagesPath, view.PagePath));
 
-                _views.Add(view);
-            }
-            catch
-            {
-                throw;
-            }
+            _views.Add(view);
         }
     }
 

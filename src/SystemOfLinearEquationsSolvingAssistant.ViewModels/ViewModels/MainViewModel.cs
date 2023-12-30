@@ -18,9 +18,9 @@ public sealed class MainViewModel : ViewModel
     private const int MaxThreadsNumParallel = 99;
 
     private readonly ISoleSolver _soleSolver;
-    private readonly IEventBus _eventBusService;
+    private readonly IEventBus _eventBus;
     private readonly ISoleSolvingAlgorithmNameService _soleSolvingAlgorithmNameService;
-    private readonly IViewManager _viewManagerService;
+    private readonly IViewManager _viewManager;
     private readonly IUserDialogService _userDialogService;
 
     private int _currentDataDimension;
@@ -36,6 +36,8 @@ public sealed class MainViewModel : ViewModel
     private TimeSpan _elapsedTimeSerial;
     private TimeSpan _elapsedTimeParallel;
     private bool _isSolvingProcessEnded;
+
+    #region Properties
 
     public string Title
     {
@@ -109,6 +111,10 @@ public sealed class MainViewModel : ViewModel
         set => Set(ref _isSolvingProcessEnded, value);
     }
 
+    #endregion
+
+    #region Commands
+
     public RelayCommandGeneric<int> AddDataDimensionsCommand { get; }
 
     public RelayCommandGeneric<int> RemoveDataDimensionsCommand { get; }
@@ -125,34 +131,36 @@ public sealed class MainViewModel : ViewModel
 
     public RelayCommandGeneric<string> SolveParallelCommand { get; }
 
-    public MainViewModel(ISoleSolver soleSolver, IEventBus eventBusService,
-        ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService, IViewManager viewManagerService,
-        IUserDialogService userDialogService)
+    #endregion
+
+    public MainViewModel(ISoleSolver soleSolver, IEventBus eventBus,
+        ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService,
+        IViewManager viewManager, IUserDialogService userDialogService)
     {
         if (soleSolver is null)
             throw new ArgumentNullException(nameof(soleSolver),
                 "Sole solver must not be null.");
 
-        if (eventBusService is null)
-            throw new ArgumentNullException(nameof(eventBusService),
-                "Event bus service must not be null.");
+        if (eventBus is null)
+            throw new ArgumentNullException(nameof(eventBus),
+                "Event bus must not be null.");
 
         if (soleSolvingAlgorithmNameService is null)
             throw new ArgumentNullException(nameof(soleSolvingAlgorithmNameService),
                 "Sole solving algorithm name service must not be null.");
 
-        if (viewManagerService is null)
-            throw new ArgumentNullException(nameof(viewManagerService),
-                "View manager service must not be null.");
+        if (viewManager is null)
+            throw new ArgumentNullException(nameof(viewManager),
+                "View manager must not be null.");
 
         if (userDialogService is null)
             throw new ArgumentNullException(nameof(userDialogService),
                 "User dialog service must not be null.");
 
         _soleSolver = soleSolver;
-        _eventBusService = eventBusService;
+        _eventBus = eventBus;
         _soleSolvingAlgorithmNameService = soleSolvingAlgorithmNameService;
-        _viewManagerService = viewManagerService;
+        _viewManager = viewManager;
         _userDialogService = userDialogService;
 
         _title = "System of linear equations solving assistant";
@@ -183,10 +191,12 @@ public sealed class MainViewModel : ViewModel
         SolveParallelCommand = new RelayCommandGeneric<string>
             (OnSolveParallelCommandExecute, CanSolveParallelCommandExecute, this);
 
-        _eventBusService.Subscribe<SoleLoadedIntegrationEvent>(OnSoleLoadedIntegrationEvent);
+        _eventBus.Subscribe<SoleLoadedIntegrationEvent>(OnSoleLoadedIntegrationEvent);
 
         ResetData(5);
     }
+
+    #region Command components
 
     private void OnAddDataDimensionsCommandExecute(int dimensionsCount)
     {
@@ -197,7 +207,7 @@ public sealed class MainViewModel : ViewModel
     }
 
     private bool CanAddDataDimensionsCommandExecute(int dimensionsCount) =>
-        !(dimensionsCount < 1 || _currentDataDimension + dimensionsCount > MaxDataDimension);
+        !((dimensionsCount < 1) || (_currentDataDimension + dimensionsCount > MaxDataDimension));
 
     private void OnRemoveDataDimensionsCommandExecute(int dimensionsCount)
     {
@@ -208,7 +218,7 @@ public sealed class MainViewModel : ViewModel
     }
 
     private bool CanRemoveDataDimensionsCommandExecute(int dimensionsCount) =>
-        !(dimensionsCount < 1 || _currentDataDimension - dimensionsCount < MinDataDimension);
+        !((dimensionsCount < 1) || (_currentDataDimension - dimensionsCount < MinDataDimension));
 
     private void OnResetDataCommandExecute(int dimensionsCount)
     {
@@ -221,7 +231,7 @@ public sealed class MainViewModel : ViewModel
     private bool CanResetDataCommandExecute(int dimensionsCount) =>
         dimensionsCount is >= MinDataDimension and <= MaxDataDimension;
 
-    private void OnLoadFromFilesCommandExecute() => _viewManagerService.ShowView("LoadingSoleFromFiles", "Main", true);
+    private void OnLoadFromFilesCommandExecute() => _viewManager.ShowView("LoadingSoleFromFiles", "Main", true);
 
     private bool CanLoadFromFilesCommandExecute() => true;
 
@@ -234,7 +244,7 @@ public sealed class MainViewModel : ViewModel
     }
 
     private bool CanAddThreadsParallelCommandExecute(int threadsNum) =>
-        !(threadsNum < 1 || ThreadsNumParallel + threadsNum > MaxThreadsNumParallel);
+        !((threadsNum < 1) || (ThreadsNumParallel + threadsNum > MaxThreadsNumParallel));
 
     private void OnRemoveThreadsParallelCommandExecute(int threadsNum)
     {
@@ -245,7 +255,7 @@ public sealed class MainViewModel : ViewModel
     }
 
     private bool CanRemoveThreadsParallelCommandExecute(int threadsNum) =>
-        !(threadsNum < 1 || ThreadsNumParallel - threadsNum < MinThreadsNumParallel);
+        !((threadsNum < 1) || (ThreadsNumParallel - threadsNum < MinThreadsNumParallel));
 
     private async void OnSolveSerialCommandExecute(string? algorithmName)
     {
@@ -253,7 +263,6 @@ public sealed class MainViewModel : ViewModel
             return;
 
         IsSolvingProcessEnded = false;
-
         Sole sole = GetSoleFromData();
         SoleSolvingAlgorithmSerial solvingAlgorithm =
             _soleSolvingAlgorithmNameService.GetAlgorithmByNameSerial(algorithmName!);
@@ -262,7 +271,6 @@ public sealed class MainViewModel : ViewModel
 
         ElapsedTimeSerial = solvingResults.ElapsedTime;
         SetSolutionSet(solvingResults);
-
         IsSolvingProcessEnded = true;
     }
 
@@ -274,7 +282,6 @@ public sealed class MainViewModel : ViewModel
             return;
 
         IsSolvingProcessEnded = false;
-
         Sole sole = GetSoleFromData();
         SoleSolvingAlgorithmParallel solvingAlgorithm =
             _soleSolvingAlgorithmNameService.GetAlgorithmByNameParallel(algorithmName!);
@@ -283,11 +290,12 @@ public sealed class MainViewModel : ViewModel
 
         ElapsedTimeParallel = solvingResults.ElapsedTime;
         SetSolutionSet(solvingResults);
-
         IsSolvingProcessEnded = true;
     }
 
     private bool CanSolveParallelCommandExecute(string? algorithmName) => AlgorithmNamesParallel.Contains(algorithmName);
+
+    #endregion
 
     private void OnSoleLoadedIntegrationEvent(SoleLoadedIntegrationEvent soleLoadedIntegrationEvent)
     {
@@ -359,8 +367,8 @@ public sealed class MainViewModel : ViewModel
 
     private void ChangeDataDimension(int dimensionsCount, bool isExpanding)
     {
-        if (isExpanding is true && _currentDataDimension + dimensionsCount > MaxDataDimension ||
-            isExpanding is false && _currentDataDimension - dimensionsCount < MinDataDimension)
+        if (((isExpanding is true) && (_currentDataDimension + dimensionsCount > MaxDataDimension)) ||
+            ((isExpanding is false) && (_currentDataDimension - dimensionsCount < MinDataDimension)))
             return;
 
         DataTable dataTableMatrixA = DataTableMatrixA.Copy();

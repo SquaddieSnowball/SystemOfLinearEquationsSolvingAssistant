@@ -18,6 +18,8 @@ public partial class App : Application
         ViewModelsRegistrator.Register();
         ViewsRegistrator.Register();
 
-        DependenciesContainer.Resolve<IViewManager>()?.ShowView("Main");
+        IViewManager viewManager = DependenciesContainer.Resolve<IViewManager>()!;
+
+        viewManager.ShowView("Main");
     }
 }

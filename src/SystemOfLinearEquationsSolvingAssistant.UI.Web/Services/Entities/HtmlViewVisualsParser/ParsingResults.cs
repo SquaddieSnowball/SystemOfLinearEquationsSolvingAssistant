@@ -17,7 +17,7 @@ internal sealed class ParsingResults
         if (codeElements is null)
             throw new ArgumentNullException(nameof(codeElements), "Code elements must not be null.");
 
-        if (stringChunks.Count() - 1 != codeElements.Count())
+        if ((stringChunks.Count() - 1) != codeElements.Count())
             throw new ArgumentException("The number of string chunks must exceed the number of code elements by 1.");
 
         (_stringChunks, _codeElements) = (stringChunks.ToArray(), codeElements.ToArray());
@@ -27,7 +27,7 @@ internal sealed class ParsingResults
     {
         for (var i = 0; i < _stringChunks.Length; i++)
         {
-            if (i == _stringChunks.Length - 1)
+            if (i == (_stringChunks.Length - 1))
             {
                 yield return (_stringChunks[i], default);
                 yield break;

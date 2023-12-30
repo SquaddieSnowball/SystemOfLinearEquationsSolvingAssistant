@@ -8,6 +8,7 @@ internal static class ViewModelsRegistrator
 {
     public static void Register()
     {
-        DependenciesContainer.Register<MainViewModel>(DependencyObjectLifetime.Singleton);
+        DependenciesContainer
+            .Register<MainViewModel>(DependencyObjectLifetime.Singleton);
     }
 }

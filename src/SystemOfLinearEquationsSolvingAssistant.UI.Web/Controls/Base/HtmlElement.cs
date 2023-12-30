@@ -32,8 +32,10 @@ internal abstract class HtmlElement
     protected virtual void Validate()
     {
         foreach (HtmlAttribute attribute in Attributes)
+        {
             if (attribute.PropertyBinding?.IsSet is false)
                 throw new HtmlElementValidationException($"\"{attribute.Parameter}\" attribute property binding not set.");
+        }
     }
 
     public abstract string GenerateHtml(int nestingLevel);

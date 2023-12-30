@@ -8,6 +8,7 @@ internal static class ViewsRegistrator
 {
     public static void Register()
     {
-        DependenciesContainer.Register<MainView>(DependencyObjectLifetime.Singleton);
+        DependenciesContainer
+            .Register<MainView>(DependencyObjectLifetime.Singleton);
     }
 }

@@ -13,12 +13,12 @@ namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Views;
 
 internal sealed class MainView : HtmlView
 {
-    private readonly IEventBus _eventBusService;
+    private readonly IEventBus _eventBus;
     private readonly ISoleSolvingAlgorithmNameService _soleSolvingAlgorithmNameService;
 
     public override string PagePath => "index.html";
 
-    public MainView(IEventBus eventBusService, ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService)
+    public MainView(IEventBus eventBus, ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService)
     {
         if (soleSolvingAlgorithmNameService is null)
         {
@@ -26,13 +26,13 @@ internal sealed class MainView : HtmlView
                 "Sole solving algorithm name service must not be null.");
         }
 
-        if (eventBusService is null)
+        if (eventBus is null)
         {
-            throw new ArgumentNullException(nameof(eventBusService),
-                "Event bus service must not be null.");
+            throw new ArgumentNullException(nameof(eventBus),
+                "Event bus must not be null.");
         }
 
-        (_eventBusService, _soleSolvingAlgorithmNameService) = (eventBusService, soleSolvingAlgorithmNameService);
+        (_eventBus, _soleSolvingAlgorithmNameService) = (eventBus, soleSolvingAlgorithmNameService);
 
         GetHandler = req => HandleGet();
         PostHandler = req => HandlePost(req);
@@ -40,7 +40,7 @@ internal sealed class MainView : HtmlView
 
     protected override void OnRelinkRequest(EventArgs e) => base.OnRelinkRequest(e);
 
-    private void ValidateView()
+    private void ValidateViewState()
     {
         if (Page is null)
         {
@@ -63,7 +63,7 @@ internal sealed class MainView : HtmlView
 
     private HttpResponse HandleGet()
     {
-        ValidateView();
+        ValidateViewState();
 
         return new(
             HttpResponseStatus.OK,
@@ -76,7 +76,7 @@ internal sealed class MainView : HtmlView
 
     private HttpResponse HandlePost(HttpRequest request)
     {
-        ValidateView();
+        ValidateViewState();
 
         try
         {
@@ -110,7 +110,7 @@ internal sealed class MainView : HtmlView
             b[i] = double.Parse(solvingData.B[i]);
         }
 
-        _eventBusService.Publish(new SoleLoadedIntegrationEvent(new Sole(a, b)));
+        _eventBus.Publish(new SoleLoadedIntegrationEvent(new Sole(a, b)));
 
         Type viewModelType = ViewModel!.GetType();
 
@@ -149,6 +149,8 @@ internal sealed class MainView : HtmlView
                 viewModelType
                     .GetProperty("IsSolvingProcessEnded")?
                     .GetValue(ViewModel));
+
+            Thread.Sleep(10);
         }
         while (isSolvingProcessEnded is false);
     }

@@ -5,8 +5,8 @@ namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Controls.Helpers;
 
 internal static class HtmlGenerationHelper
 {
-    public static Dictionary<string, IEnumerable<HtmlAttribute>> DivideByCategory(this IEnumerable<HtmlAttribute> attributes,
-        IEnumerable<string>? categories = default)
+    public static Dictionary<string, IEnumerable<HtmlAttribute>> DivideByCategory(
+        this IEnumerable<HtmlAttribute> attributes, IEnumerable<string>? categories = default)
     {
         if (attributes is null)
             throw new ArgumentNullException(nameof(attributes), "Attributes must not be null.");
@@ -67,7 +67,7 @@ internal static class HtmlGenerationHelper
                 _ = stringBuilder.Append(' ' + attributeParameter);
 
                 string? attributeValue =
-                    attribute.PropertyBinding is not null ?
+                    (attribute.PropertyBinding is not null) ?
                     (attribute.PropertyBinding.Value?.ToString()) :
                     attribute.Value;
 

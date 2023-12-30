@@ -15,14 +15,7 @@ internal sealed class DataGrid : CompositeTag
         if (nestingLevel < 0)
             throw new ArgumentException("Nesting level must not be negative.", nameof(nestingLevel));
 
-        try
-        {
-            Validate();
-        }
-        catch
-        {
-            throw;
-        }
+        Validate();
 
         Dictionary<string, IEnumerable<HtmlAttribute>> attributesByCategory =
             Attributes.DivideByCategory(new string[] { "#", "#h-", "#c-" });
@@ -42,7 +35,7 @@ internal sealed class DataGrid : CompositeTag
 
         DataTable? items = itemsAttribute?.PropertyBinding?.Value as DataTable;
 
-        if (items is not null && items.Columns.Count > 0 && items.Rows.Count > 0)
+        if ((items is not null) && (items.Columns.Count > 0) && (items.Rows.Count > 0))
         {
             _ = dataGridStringBuilder.AppendLine();
 

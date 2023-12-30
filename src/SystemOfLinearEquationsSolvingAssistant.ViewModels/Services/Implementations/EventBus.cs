@@ -17,8 +17,7 @@ public sealed class EventBus : IEventBus
             if (_subscribtions.TryGetValue(integrationEventType, out Delegate? currentIntegrationEventHandlers) is false)
                 _subscribtions.Add(integrationEventType, integrationEventHandler);
             else
-                _subscribtions[integrationEventType] =
-                    Delegate.Combine(currentIntegrationEventHandlers, integrationEventHandler);
+                _subscribtions[integrationEventType] = Delegate.Combine(currentIntegrationEventHandlers, integrationEventHandler);
         }
     }
 
@@ -31,8 +30,7 @@ public sealed class EventBus : IEventBus
             if (_subscribtions.TryGetValue(integrationEventType, out Delegate? currentIntegrationEventHandlers) is false)
                 return;
             else
-                _subscribtions[integrationEventType] =
-                    Delegate.Remove(currentIntegrationEventHandlers, integrationEventHandler);
+                _subscribtions[integrationEventType] = Delegate.Remove(currentIntegrationEventHandlers, integrationEventHandler);
         }
     }
 

@@ -21,35 +21,25 @@ internal sealed class WpfViewManager : IViewManager
         Type viewModelType = GetViewModelType(viewName) ??
             throw new ArgumentException("The view model for the view with the specified name does not exist.", nameof(viewName));
 
-        Window view;
-        ViewModel viewModel;
+        Window view = (Window)DependenciesContainer.Resolve(viewType)!;
+        ViewModel viewModel = (ViewModel)DependenciesContainer.Resolve(viewModelType)!;
 
-        try
+        view.DataContext = viewModel;
+
+        if (string.IsNullOrEmpty(ownerViewName) is false)
         {
-            view = (Window)DependenciesContainer.Resolve(viewType)!;
-            viewModel = (ViewModel)DependenciesContainer.Resolve(viewModelType)!;
+            Type ownerViewType = GetViewType(ownerViewName) ??
+                throw new ArgumentException("The view with the specified name does not exist.", nameof(ownerViewName));
 
-            view.DataContext = viewModel;
+            Window ownerView = (Window)DependenciesContainer.Resolve(ownerViewType)!;
 
-            if (string.IsNullOrEmpty(ownerViewName) is false)
-            {
-                Type ownerViewType = GetViewType(ownerViewName) ??
-                    throw new ArgumentException("The view with the specified name does not exist.", nameof(ownerViewName));
-
-                Window ownerView = (Window)DependenciesContainer.Resolve(ownerViewType)!;
-
-                view.Owner = ownerView;
-            }
-
-            if (isDialogMode is false)
-                view.Show();
-            else
-                _ = view.ShowDialog();
+            view.Owner = ownerView;
         }
-        catch
-        {
-            throw;
-        }
+
+        if (isDialogMode is false)
+            view.Show();
+        else
+            _ = view.ShowDialog();
     }
 
     public void CloseView(string viewName)
@@ -61,12 +51,14 @@ internal sealed class WpfViewManager : IViewManager
             throw new ArgumentException("The view with the specified name does not exist.", nameof(viewName));
 
         foreach (Window window in Application.Current.Windows)
+        {
             if (window.GetType().Equals(viewType) is true)
             {
                 window.Close();
 
                 return;
             }
+        }
 
         throw new ArgumentException("The view with the specified name is not currently shown.", nameof(viewName));
     }
@@ -77,8 +69,10 @@ internal sealed class WpfViewManager : IViewManager
             Assembly.GetAssembly(typeof(App))!.GetTypes().Where(t => t.Namespace?.Contains(ViewsNamespace) ?? false);
 
         foreach (Type viewType in viewTypes)
-            if (viewType.Name.Equals(viewName + "View", StringComparison.Ordinal) is true)
+        {
+            if (viewType.Name.Equals($"{viewName}View", StringComparison.Ordinal) is true)
                 return viewType;
+        }
 
         return default;
     }
@@ -89,8 +83,10 @@ internal sealed class WpfViewManager : IViewManager
             Assembly.GetAssembly(typeof(ViewModel))!.GetTypes().Where(t => t.Namespace?.Contains(ViewModelsNamespace) ?? false);
 
         foreach (Type viewModelType in viewModelTypes)
-            if (viewModelType.Name.Equals(viewName + "ViewModel", StringComparison.Ordinal) is true)
+        {
+            if (viewModelType.Name.Equals($"{viewName}ViewModel", StringComparison.Ordinal) is true)
                 return viewModelType;
+        }
 
         return default;
     }

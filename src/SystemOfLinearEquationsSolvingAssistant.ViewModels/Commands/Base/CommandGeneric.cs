@@ -6,8 +6,6 @@ public abstract class CommandGeneric<T> : ICommand
 {
     private readonly Type _parameterType = typeof(T);
 
-    public event EventHandler? CanExecuteChanged;
-
     void ICommand.Execute(object? parameter)
     {
         if (parameter?.GetType().Equals(_parameterType) is false)
@@ -26,6 +24,8 @@ public abstract class CommandGeneric<T> : ICommand
     }
 
     public void NotifyCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+
+    public event EventHandler? CanExecuteChanged;
 
     protected abstract void Execute(object? parameter);
 

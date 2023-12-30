@@ -16,19 +16,12 @@ internal sealed class Tag : HtmlElement
         if (nestingLevel < 0)
             throw new ArgumentException("Nesting level must not be negative.", nameof(nestingLevel));
 
-        try
-        {
-            Validate();
-        }
-        catch
-        {
-            throw;
-        }
+        Validate();
 
         HtmlAttribute? contentAttribute =
             Attributes.FirstOrDefault(a => a.Parameter.Equals("#content", StringComparison.Ordinal));
 
-        if (IsClosed is false && contentAttribute is not null)
+        if ((IsClosed is false) && (contentAttribute is not null))
             throw new HtmlElementValidationException($"The tag containing the \"#content\" attribute must be closed.");
 
         StringBuilder htmlTagStringBuilder = new();
@@ -43,8 +36,8 @@ internal sealed class Tag : HtmlElement
             _ = htmlTagStringBuilder.Append(' ' + attribute.Parameter);
 
             string attributeValue =
-                attribute.PropertyBinding is not null ?
-                attribute.PropertyBinding.Value?.ToString() ?? string.Empty :
+                (attribute.PropertyBinding is not null) ?
+                (attribute.PropertyBinding.Value?.ToString() ?? string.Empty) :
                 attribute.Value;
 
             if (string.IsNullOrEmpty(attributeValue) is false)
@@ -54,10 +47,12 @@ internal sealed class Tag : HtmlElement
         _ = htmlTagStringBuilder.Append('>');
 
         if (contentAttribute is not null)
+        {
             _ = htmlTagStringBuilder.Append(
-                contentAttribute.PropertyBinding is not null ?
-                contentAttribute.PropertyBinding.Value?.ToString() ?? string.Empty :
+                (contentAttribute.PropertyBinding is not null) ?
+                (contentAttribute.PropertyBinding.Value?.ToString() ?? string.Empty) :
                 contentAttribute.Value);
+        }
 
         if (IsClosed is true)
             _ = htmlTagStringBuilder.Append($"</{Name}>");

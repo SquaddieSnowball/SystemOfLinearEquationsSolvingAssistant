@@ -22,27 +22,31 @@ internal static class ServicesRegistrator
     public static void Register()
     {
         DependenciesContainer
-            .Register<IHtmlViewVisualsParser, HtmlViewVisualsParser>(DependencyObjectLifetime.Transient);
-        DependenciesContainer
-            .Register<IHtmlViewLinker, HtmlViewLinker>(DependencyObjectLifetime.Transient);
-        DependenciesContainer
-            .Register<ISoleSolver, SoleSolver>(DependencyObjectLifetime.Transient);
-        DependenciesContainer
             .Register<IEventBus, EventBus>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
             .Register<ISoleSolvingAlgorithmNameService, SoleSolvingAlgorithmNameService>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
-            .Register<IViewManager, HtmlViewManager>(DependencyObjectLifetime.Transient);
+            .Register<IViewManager, HtmlViewManager>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
-            .Register<IUserDialogService, HtmlUserDialogService>(DependencyObjectLifetime.Transient);
+            .Register<IHttpServerManager, HttpServerManager>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
             .Register<IHttpRequestParser, HttpRequestParser>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
             .Register<IHttpResponseBuilder, HttpResponseBuilder>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
+            .Register<TcpServer>(DependencyObjectLifetime.Singleton);
+        DependenciesContainer
+            .Register<HttpServer>(DependencyObjectLifetime.Singleton);
+        DependenciesContainer
             .Register<IHttpServerResponseGenerator, HttpServerResponseGenerator>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
-            .Register<IHttpServerManager, HttpServerManager>(DependencyObjectLifetime.Singleton);
+            .Register<ISoleSolver, SoleSolver>(DependencyObjectLifetime.Transient);
+        DependenciesContainer
+            .Register<IUserDialogService, HtmlUserDialogService>(DependencyObjectLifetime.Transient);
+        DependenciesContainer
+            .Register<IHtmlViewVisualsParser, HtmlViewVisualsParser>(DependencyObjectLifetime.Transient);
+        DependenciesContainer
+            .Register<IHtmlViewLinker, HtmlViewLinker>(DependencyObjectLifetime.Transient);
         DependenciesContainer
             .Register<IOptions<TcpServerOptions>, TcpServerOptionsProvider>(DependencyObjectLifetime.Transient);
         DependenciesContainer
@@ -51,9 +55,5 @@ internal static class ServicesRegistrator
             .Register<ILogger<TcpServer>, TcpServerLoggerProvider>(DependencyObjectLifetime.Transient);
         DependenciesContainer
             .Register<ILogger<HttpServer>, HttpServerLoggerProvider>(DependencyObjectLifetime.Transient);
-        DependenciesContainer
-            .Register<TcpServer>(DependencyObjectLifetime.Singleton);
-        DependenciesContainer
-            .Register<HttpServer>(DependencyObjectLifetime.Singleton);
     }
 }

@@ -20,18 +20,8 @@ public sealed class SoleFileParser : ISoleParser
         if (parsingTemplate is null)
             throw new ArgumentNullException(nameof(parsingTemplate), "Parsing template must not be null.");
 
-        string fileTextA;
-        string fileTextB;
-
-        try
-        {
-            fileTextA = File.ReadAllText(pathA);
-            fileTextB = File.ReadAllText(pathB);
-        }
-        catch
-        {
-            throw;
-        }
+        string fileTextA = File.ReadAllText(pathA);
+        string fileTextB = File.ReadAllText(pathB);
 
         double[,] a;
         double[] b;
@@ -42,11 +32,7 @@ public sealed class SoleFileParser : ISoleParser
         }
         catch (ArgumentException ex)
         {
-            throw new ArgumentException($"Matrix A: {ex.Message}", ex);
-        }
-        catch
-        {
-            throw;
+            throw new ArgumentException($"Matrix A: \"{ex.Message}\"", ex);
         }
 
         try
@@ -55,25 +41,10 @@ public sealed class SoleFileParser : ISoleParser
         }
         catch (ArgumentException ex)
         {
-            throw new ArgumentException($"Vector B: {ex.Message}", ex);
-        }
-        catch
-        {
-            throw;
+            throw new ArgumentException($"Vector B: \"{ex.Message}\"", ex);
         }
 
-        Sole sole;
-
-        try
-        {
-            sole = new Sole(a, b);
-        }
-        catch
-        {
-            throw;
-        }
-
-        return sole;
+        return new Sole(a, b);
     }
 
     public async Task<Sole> ParseAsync(string pathA, string pathB, SoleParsingTemplate parsingTemplate)
@@ -87,18 +58,8 @@ public sealed class SoleFileParser : ISoleParser
         if (parsingTemplate is null)
             throw new ArgumentNullException(nameof(parsingTemplate), "Parsing template must not be null.");
 
-        string fileTextA;
-        string fileTextB;
-
-        try
-        {
-            fileTextA = await File.ReadAllTextAsync(pathA);
-            fileTextB = await File.ReadAllTextAsync(pathB);
-        }
-        catch
-        {
-            throw;
-        }
+        string fileTextA = await File.ReadAllTextAsync(pathA);
+        string fileTextB = await File.ReadAllTextAsync(pathB);
 
         double[,] a;
         double[] b;
@@ -109,11 +70,7 @@ public sealed class SoleFileParser : ISoleParser
         }
         catch (ArgumentException ex)
         {
-            throw new ArgumentException($"Matrix A: {ex.Message}", ex);
-        }
-        catch
-        {
-            throw;
+            throw new ArgumentException($"Matrix A: \"{ex.Message}\"", ex);
         }
 
         try
@@ -122,24 +79,9 @@ public sealed class SoleFileParser : ISoleParser
         }
         catch (ArgumentException ex)
         {
-            throw new ArgumentException($"Vector B: {ex.Message}", ex);
-        }
-        catch
-        {
-            throw;
+            throw new ArgumentException($"Vector B: \"{ex.Message}\"", ex);
         }
 
-        Sole sole;
-
-        try
-        {
-            sole = new Sole(a, b);
-        }
-        catch
-        {
-            throw;
-        }
-
-        return sole;
+        return new Sole(a, b);
     }
 }

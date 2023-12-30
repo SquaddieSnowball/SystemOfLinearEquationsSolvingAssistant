@@ -6,14 +6,14 @@ namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Implementation
 
 internal sealed class HtmlUserDialogService : IUserDialogService
 {
-    private readonly IEventBus _eventBusService;
+    private readonly IEventBus _eventBus;
 
-    public HtmlUserDialogService(IEventBus eventBusService)
+    public HtmlUserDialogService(IEventBus eventBus)
     {
-        if (eventBusService is null)
-            throw new ArgumentNullException(nameof(eventBusService), "Event bus service must not be null.");
+        if (eventBus is null)
+            throw new ArgumentNullException(nameof(eventBus), "Event bus must not be null.");
 
-        _eventBusService = eventBusService;
+        _eventBus = eventBus;
     }
 
     public void ShowInformationMessage(string message, string title = "Information")
@@ -24,7 +24,7 @@ internal sealed class HtmlUserDialogService : IUserDialogService
             .AddData(nameof(message), message)
             .AddData(nameof(title), title);
 
-        _eventBusService.Publish(showInformationMessageIntegrationEvent);
+        _eventBus.Publish(showInformationMessageIntegrationEvent);
     }
 
     public void ShowWarningMessage(string message, string title = "Warning")
@@ -35,7 +35,7 @@ internal sealed class HtmlUserDialogService : IUserDialogService
             .AddData(nameof(message), message)
             .AddData(nameof(title), title);
 
-        _eventBusService.Publish(showWarningMessageIntegrationEvent);
+        _eventBus.Publish(showWarningMessageIntegrationEvent);
     }
 
     public void ShowErrorMessage(string message, string title = "Error")
@@ -46,7 +46,7 @@ internal sealed class HtmlUserDialogService : IUserDialogService
             .AddData(nameof(message), message)
             .AddData(nameof(title), title);
 
-        _eventBusService.Publish(showErrorMessageIntegrationEvent);
+        _eventBus.Publish(showErrorMessageIntegrationEvent);
     }
 
     public string ShowOpenFileDialog(string filter = "All files (*.*)|*.*", string title = "Open file")
@@ -57,7 +57,7 @@ internal sealed class HtmlUserDialogService : IUserDialogService
             .AddData(nameof(filter), filter)
             .AddData(nameof(title), title);
 
-        _eventBusService.Publish(showOpenFileDialogIntegrationEvent);
+        _eventBus.Publish(showOpenFileDialogIntegrationEvent);
 
         return string.Empty;
     }

@@ -14,14 +14,7 @@ internal static class SoleSolverAlgorithmsSerial
 
     private static double[] GaussianElimination(Sole sole)
     {
-        try
-        {
-            CheckSolvingAlgorithmArguments(sole);
-        }
-        catch
-        {
-            throw;
-        }
+        ValidateAlgorithmArguments(sole);
 
         Sole soleClone = (Sole)sole.Clone();
 
@@ -30,8 +23,10 @@ internal static class SoleSolverAlgorithmsSerial
             int pivotRow = p;
 
             for (var r = p + 1; r < soleClone.Dimension; r++)
+            {
                 if (Math.Abs(soleClone.A[r, p]) > Math.Abs(soleClone.A[pivotRow, p]))
                     pivotRow = r;
+            }
 
             if (soleClone.A[pivotRow, p] is 0)
                 return Array.Empty<double>();
@@ -45,6 +40,7 @@ internal static class SoleSolverAlgorithmsSerial
             }
 
             for (var r = p + 1; r < soleClone.Dimension; r++)
+            {
                 if (soleClone.A[r, p] is not 0)
                 {
                     double coefficient = soleClone.A[r, p] / soleClone.A[p, p];
@@ -54,6 +50,7 @@ internal static class SoleSolverAlgorithmsSerial
 
                     soleClone.B[r] -= soleClone.B[p] * coefficient;
                 }
+            }
         }
 
         double[] solutionSet = new double[soleClone.Dimension];
@@ -74,7 +71,7 @@ internal static class SoleSolverAlgorithmsSerial
         return solutionSet;
     }
 
-    private static void CheckSolvingAlgorithmArguments(Sole sole)
+    private static void ValidateAlgorithmArguments(Sole sole)
     {
         if (sole is null)
             throw new ArgumentNullException(nameof(sole), "System of linear equations must not be null.");

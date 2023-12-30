@@ -31,8 +31,10 @@ internal static class SoleParserHelper
             string[] numberLines = rowLines[i].Split(parsingTemplate.VariableSeparator, StringSplitOptions.RemoveEmptyEntries);
 
             if (numberLines.Length != n)
-                throw new ArgumentException($"The amount of numbers in the line \"{i + 1}\" does not match the number of lines.",
-                    nameof(text));
+            {
+                throw new ArgumentException($"The amount of numbers in the line \"{i + 1}\" " +
+                    $"does not match the number of lines.", nameof(text));
+            }
 
             for (var j = 0; j < n; j++)
                 a[i, j] = double.Parse(numberLines[j], parsingNumberFormatInfo);

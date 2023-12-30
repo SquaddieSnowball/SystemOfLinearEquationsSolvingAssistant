@@ -29,17 +29,7 @@ internal sealed class HtmlViewLinker : IHtmlViewLinker
         if (string.IsNullOrEmpty(viewVisualsPath) is true)
             throw new ArgumentException("View visuals path must not be null or empty.", nameof(viewVisualsPath));
 
-        ParsingResults viewVisualsParsingResults;
-
-        try
-        {
-            viewVisualsParsingResults = _htmlViewVisualsParser.Parse(viewVisualsPath);
-        }
-        catch
-        {
-            throw;
-        }
-
+        ParsingResults viewVisualsParsingResults = _htmlViewVisualsParser.Parse(viewVisualsPath);
         StringBuilder htmlPageStringBuilder = new();
 
         foreach ((string, CodeElement?) viewVisualsParsingResult in viewVisualsParsingResults)
@@ -50,13 +40,16 @@ internal sealed class HtmlViewLinker : IHtmlViewLinker
                 continue;
 
             if (viewVisualsParsingResult.Item2.HtmlElements.Any(e => e.Attributes
-            .Any(a => a.PropertyBinding is not null) is true) is true && viewLogicInstance.ViewModel is null)
+                .Any(a => a.PropertyBinding is not null) is true is true) && (viewLogicInstance.ViewModel is null))
+            {
                 throw new HtmlViewLinkingException("The HTML view cannot be linked because the view's visuals " +
                     "contain properties that require binding, but no view model has been set.");
+            }
 
             foreach (HtmlElement htmlElement in viewVisualsParsingResult.Item2.HtmlElements)
             {
                 foreach (HtmlAttribute htmlAttribute in htmlElement.Attributes)
+                {
                     if (htmlAttribute.PropertyBinding is not null)
                     {
                         PropertyInfo? bindingPropertyInfo =
@@ -66,18 +59,9 @@ internal sealed class HtmlViewLinker : IHtmlViewLinker
 
                         htmlAttribute.PropertyBinding.Set(bindingPropertyInfo.GetValue(viewLogicInstance.ViewModel));
                     }
-
-                string htmlElementMarkup;
-
-                try
-                {
-                    htmlElementMarkup = htmlElement.GenerateHtml(viewVisualsParsingResult.Item2.NestingLevel);
-                }
-                catch
-                {
-                    throw;
                 }
 
+                string htmlElementMarkup = htmlElement.GenerateHtml(viewVisualsParsingResult.Item2.NestingLevel);
                 _ = htmlPageStringBuilder.AppendLine(htmlElementMarkup);
             }
         }

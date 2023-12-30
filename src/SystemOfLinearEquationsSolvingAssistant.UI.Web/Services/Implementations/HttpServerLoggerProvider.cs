@@ -5,7 +5,7 @@ namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Implementation
 
 internal sealed class HttpServerLoggerProvider : ILogger<HttpServer>
 {
-    private readonly ILogger logger = LoggerFactory.Create(b => b.AddConsole().SetMinimumLevel(LogLevel.Debug)).CreateLogger<HttpServer>();
+    private readonly ILogger logger = LoggerFactory.Create(b => b.AddConsole()).CreateLogger<HttpServer>();
 
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull => logger.BeginScope(state);
 

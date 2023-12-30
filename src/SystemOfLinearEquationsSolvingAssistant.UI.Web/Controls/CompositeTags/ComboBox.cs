@@ -14,14 +14,7 @@ internal sealed class ComboBox : CompositeTag
         if (nestingLevel < 0)
             throw new ArgumentException("Nesting level must not be negative.", nameof(nestingLevel));
 
-        try
-        {
-            Validate();
-        }
-        catch
-        {
-            throw;
-        }
+        Validate();
 
         Dictionary<string, IEnumerable<HtmlAttribute>> attributesByCategory =
             Attributes.DivideByCategory(new string[] { "#", "#i-" });
@@ -38,7 +31,7 @@ internal sealed class ComboBox : CompositeTag
         _ = comboBoxStringBuilder.Append('>');
 
         object? selectedItem =
-            selectedAttribute?.PropertyBinding is not null ?
+            (selectedAttribute?.PropertyBinding is not null) ?
             selectedAttribute.PropertyBinding.Value :
             selectedAttribute?.Value;
 
@@ -61,14 +54,12 @@ internal sealed class ComboBox : CompositeTag
                     if (stringItem.Equals(stringSelectedItem, StringComparison.Ordinal) is true)
                     {
                         stringSelectedItem = default;
-
                         _ = comboBoxStringBuilder.Append(" selected");
                     }
 
-                    string valueAttributeValue = string.Join('-', new string(
-                        stringItem
+                    string valueAttributeValue = string.Join('-', new string(stringItem
                         .ToLower()
-                        .Where(c => char.IsLetterOrDigit(c) is true || char.IsWhiteSpace(c) is true)
+                        .Where(c => (char.IsLetterOrDigit(c) is true) || (char.IsWhiteSpace(c) is true))
                         .ToArray())
                         .Split(' ', StringSplitOptions.RemoveEmptyEntries));
 

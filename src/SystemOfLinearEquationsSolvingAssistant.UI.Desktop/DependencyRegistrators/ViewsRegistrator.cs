@@ -8,7 +8,9 @@ internal static class ViewsRegistrator
 {
     public static void Register()
     {
-        DependenciesContainer.Register<MainView>(DependencyObjectLifetime.Singleton);
-        DependenciesContainer.Register<LoadingSoleFromFilesView>(DependencyObjectLifetime.Transient);
+        DependenciesContainer
+            .Register<MainView>(DependencyObjectLifetime.Singleton);
+        DependenciesContainer
+            .Register<LoadingSoleFromFilesView>(DependencyObjectLifetime.Transient);
     }
 }

@@ -7,8 +7,9 @@ ServicesRegistrator.Register();
 ViewModelsRegistrator.Register();
 ViewsRegistrator.Register();
 
-IHttpServerManager httpServerManagerService = DependenciesContainer.Resolve<IHttpServerManager>()!;
-httpServerManagerService.SetDefaultView<MainView>();
-httpServerManagerService.StartServer();
+IHttpServerManager httpServerManager = DependenciesContainer.Resolve<IHttpServerManager>()!;
+
+httpServerManager.SetDefaultView<MainView>();
+httpServerManager.StartServer();
 
 Console.ReadLine();

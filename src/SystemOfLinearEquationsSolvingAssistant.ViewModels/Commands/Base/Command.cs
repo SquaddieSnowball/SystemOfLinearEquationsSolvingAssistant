@@ -4,8 +4,6 @@ namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Commands.Base;
 
 public abstract class Command : ICommand
 {
-    public event EventHandler? CanExecuteChanged;
-
     void ICommand.Execute(object? parameter)
     {
         if (((ICommand)this).CanExecute(parameter) is true)
@@ -15,6 +13,8 @@ public abstract class Command : ICommand
     bool ICommand.CanExecute(object? parameter) => CanExecute(parameter);
 
     public void NotifyCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+
+    public event EventHandler? CanExecuteChanged;
 
     protected abstract void Execute(object? parameter);
 

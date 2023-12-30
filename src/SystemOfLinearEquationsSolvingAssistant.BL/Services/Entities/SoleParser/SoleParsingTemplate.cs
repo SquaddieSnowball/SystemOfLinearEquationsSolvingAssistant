@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace SystemOfLinearEquationsSolvingAssistant.BL.Services.Entities.SoleParser;
 
@@ -8,9 +9,9 @@ public sealed class SoleParsingTemplate
 
     public string VariableSeparator { get; }
 
-    public Regex RegexLineA { get; }
+    public Regex RegexLineA { get; private set; }
 
-    public Regex RegexLineB { get; }
+    public Regex RegexLineB { get; private set; }
 
     public SoleParsingTemplate(string decimalSeparator, string variableSeparator)
     {
@@ -21,7 +22,12 @@ public sealed class SoleParsingTemplate
             throw new ArgumentException("Variable separator must not be null or empty.", nameof(variableSeparator));
 
         (DecimalSeparator, VariableSeparator) = (decimalSeparator, variableSeparator);
+        GenerateRegularExpressions();
+    }
 
+    [MemberNotNull(nameof(RegexLineA), nameof(RegexLineB))]
+    private void GenerateRegularExpressions()
+    {
         string regexDecimalSeparator = Regex.Escape(DecimalSeparator);
         string regexVariableSeparator = Regex.Escape(VariableSeparator);
 

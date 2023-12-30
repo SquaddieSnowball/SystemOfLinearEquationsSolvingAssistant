@@ -19,10 +19,6 @@ public abstract class CommonDataIntegrationEvent : IntegrationEvent
         {
             throw new ArgumentException("A data record with the specified key already exists.", nameof(key));
         }
-        catch
-        {
-            throw;
-        }
 
         return this;
     }

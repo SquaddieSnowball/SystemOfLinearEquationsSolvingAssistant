@@ -11,8 +11,8 @@ namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels;
 public sealed class LoadingSoleFromFilesViewModel : ViewModel
 {
     private readonly ISoleParser _soleParser;
-    private readonly IEventBus _eventBusService;
-    private readonly IViewManager _viewManagerService;
+    private readonly IEventBus _eventBus;
+    private readonly IViewManager _viewManager;
     private readonly IUserDialogService _userDialogService;
 
     private string _title;
@@ -21,6 +21,8 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
     private string _decimalSeparator;
     private string _variableSeparator;
     private bool _isParsingProcessEnded;
+
+    #region Properties
 
     public string Title
     {
@@ -58,34 +60,36 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
         set => Set(ref _isParsingProcessEnded, value);
     }
 
+    #endregion
+
+    #region Commands
+
     public RelayCommand OpenFileMatrixACommand { get; }
 
     public RelayCommand OpenFileVectorBCommand { get; }
 
     public RelayCommand ConfirmLoadOptionsCommand { get; }
 
-    public LoadingSoleFromFilesViewModel(ISoleParser soleParser, IEventBus eventBusService,
-        IViewManager viewManagerService, IUserDialogService userDialogService)
+    #endregion
+
+    public LoadingSoleFromFilesViewModel(ISoleParser soleParser, IEventBus eventBus,
+        IViewManager viewManager, IUserDialogService userDialogService)
     {
         if (soleParser is null)
-            throw new ArgumentNullException(nameof(soleParser),
-                "Sole parser must not be null.");
+            throw new ArgumentNullException(nameof(soleParser), "Sole parser must not be null.");
 
-        if (eventBusService is null)
-            throw new ArgumentNullException(nameof(eventBusService),
-                "Event bus service must not be null.");
+        if (eventBus is null)
+            throw new ArgumentNullException(nameof(eventBus), "Event bus must not be null.");
 
-        if (viewManagerService is null)
-            throw new ArgumentNullException(nameof(viewManagerService),
-                "View manager service must not be null.");
+        if (viewManager is null)
+            throw new ArgumentNullException(nameof(viewManager), "View manager must not be null.");
 
         if (userDialogService is null)
-            throw new ArgumentNullException(nameof(userDialogService),
-                "User dialog service must not be null.");
+            throw new ArgumentNullException(nameof(userDialogService), "User dialog service must not be null.");
 
         _soleParser = soleParser;
-        _eventBusService = eventBusService;
-        _viewManagerService = viewManagerService;
+        _eventBus = eventBus;
+        _viewManager = viewManager;
         _userDialogService = userDialogService;
 
         _title = "Loading a system of linear equations from files";
@@ -102,6 +106,8 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
         ConfirmLoadOptionsCommand = new RelayCommand
             (OnConfirmLoadOptionsCommandExecute, CanConfirmLoadOptionsCommandExecute, this);
     }
+
+    #region Command components
 
     private void OnOpenFileMatrixACommandExecute()
     {
@@ -126,7 +132,6 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
     private async void OnConfirmLoadOptionsCommandExecute()
     {
         IsParsingProcessEnded = false;
-
         Sole sole;
 
         try
@@ -145,11 +150,13 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
             IsParsingProcessEnded = true;
         }
 
-        _eventBusService.Publish(new SoleLoadedIntegrationEvent(sole));
-        _viewManagerService.CloseView("LoadingSoleFromFiles");
+        _eventBus.Publish(new SoleLoadedIntegrationEvent(sole));
+        _viewManager.CloseView("LoadingSoleFromFiles");
     }
 
     private bool CanConfirmLoadOptionsCommandExecute() =>
-        !(string.IsNullOrEmpty(FilePathMatrixA) is true || string.IsNullOrEmpty(FilePathVectorB) is true ||
-        string.IsNullOrEmpty(DecimalSeparator) is true || string.IsNullOrEmpty(VariableSeparator) is true);
+        !((string.IsNullOrEmpty(FilePathMatrixA) is true) || (string.IsNullOrEmpty(FilePathVectorB) is true) ||
+        (string.IsNullOrEmpty(DecimalSeparator) is true) || (string.IsNullOrEmpty(VariableSeparator) is true));
+
+    #endregion
 }

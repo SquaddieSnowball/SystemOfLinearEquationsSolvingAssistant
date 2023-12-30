@@ -9,10 +9,10 @@ internal static class ThrowHelper
         message ??= string.Empty;
 
         if (name is not null)
-            message += Environment.NewLine + "Name: " + name;
+            message += $"{Environment.NewLine}Name: {name}";
 
         if (index is not null)
-            message += Environment.NewLine + "Index: " + index;
+            message += $"{Environment.NewLine}Index: {index}";
 
         throw new HtmlViewVisualsParsingException(message);
     }

@@ -27,8 +27,10 @@ internal sealed class PanelChildren
     private static void SetPanelChildrenMargin(Panel panel, bool overwriteCurrentValues)
     {
         foreach (object? child in panel.Children)
-            if (child is FrameworkElement frameworkElement && (overwriteCurrentValues is true ||
-                frameworkElement.ReadLocalValue(FrameworkElement.MarginProperty) == DependencyProperty.UnsetValue))
+        {
+            if ((child is FrameworkElement frameworkElement) && ((overwriteCurrentValues is true) ||
+                (frameworkElement.ReadLocalValue(FrameworkElement.MarginProperty) == DependencyProperty.UnsetValue)))
                 frameworkElement.Margin = GetMargin(panel);
+        }
     }
 }

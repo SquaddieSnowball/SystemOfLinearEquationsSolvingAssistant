@@ -10,17 +10,7 @@ public sealed class SoleSolver : ISoleSolver
 {
     public SoleSolvingResults SolveSerial(Sole sole, SoleSolvingAlgorithmSerial solvingAlgorithm)
     {
-        Func<Sole, double[]> solvingAlgorithmMethod;
-
-        try
-        {
-            solvingAlgorithmMethod = SoleSolverAlgorithmsSerial.GetAlgorithmMethod(solvingAlgorithm);
-        }
-        catch
-        {
-            throw;
-        }
-
+        Func<Sole, double[]> solvingAlgorithmMethod = SoleSolverAlgorithmsSerial.GetAlgorithmMethod(solvingAlgorithm);
         Stopwatch stopwatch = new();
         double[] solutionSet;
 
@@ -28,10 +18,6 @@ public sealed class SoleSolver : ISoleSolver
         {
             stopwatch.Start();
             solutionSet = solvingAlgorithmMethod(sole);
-        }
-        catch
-        {
-            throw;
         }
         finally
         {
@@ -41,20 +27,10 @@ public sealed class SoleSolver : ISoleSolver
         return new SoleSolvingResults(solutionSet, stopwatch.Elapsed);
     }
 
-    public SoleSolvingResults SolveParallel(Sole sole, SoleSolvingAlgorithmParallel solvingAlgorithm,
-        int numberOfThreads)
+    public SoleSolvingResults SolveParallel(Sole sole,
+        SoleSolvingAlgorithmParallel solvingAlgorithm, int numberOfThreads)
     {
-        Func<Sole, int, double[]> solvingAlgorithmMethod;
-
-        try
-        {
-            solvingAlgorithmMethod = SoleSolverAlgorithmsParallel.GetAlgorithmMethod(solvingAlgorithm);
-        }
-        catch
-        {
-            throw;
-        }
-
+        Func<Sole, int, double[]> solvingAlgorithmMethod = SoleSolverAlgorithmsParallel.GetAlgorithmMethod(solvingAlgorithm);
         Stopwatch stopwatch = new();
         double[] solutionSet;
 
@@ -62,10 +38,6 @@ public sealed class SoleSolver : ISoleSolver
         {
             stopwatch.Start();
             solutionSet = solvingAlgorithmMethod(sole, numberOfThreads);
-        }
-        catch
-        {
-            throw;
         }
         finally
         {
@@ -77,17 +49,7 @@ public sealed class SoleSolver : ISoleSolver
 
     public async Task<SoleSolvingResults> SolveSerialAsync(Sole sole, SoleSolvingAlgorithmSerial solvingAlgorithm)
     {
-        Func<Sole, double[]> solvingAlgorithmMethod;
-
-        try
-        {
-            solvingAlgorithmMethod = SoleSolverAlgorithmsSerial.GetAlgorithmMethod(solvingAlgorithm);
-        }
-        catch
-        {
-            throw;
-        }
-
+        Func<Sole, double[]> solvingAlgorithmMethod = SoleSolverAlgorithmsSerial.GetAlgorithmMethod(solvingAlgorithm);
         Stopwatch stopwatch = new();
         double[] solutionSet;
 
@@ -95,10 +57,6 @@ public sealed class SoleSolver : ISoleSolver
         {
             stopwatch.Start();
             solutionSet = await Task.Run(() => solvingAlgorithmMethod(sole));
-        }
-        catch
-        {
-            throw;
         }
         finally
         {
@@ -108,20 +66,10 @@ public sealed class SoleSolver : ISoleSolver
         return new SoleSolvingResults(solutionSet, stopwatch.Elapsed);
     }
 
-    public async Task<SoleSolvingResults> SolveParallelAsync(Sole sole, SoleSolvingAlgorithmParallel solvingAlgorithm,
-        int numberOfThreads)
+    public async Task<SoleSolvingResults> SolveParallelAsync(Sole sole,
+        SoleSolvingAlgorithmParallel solvingAlgorithm, int numberOfThreads)
     {
-        Func<Sole, int, double[]> solvingAlgorithmMethod;
-
-        try
-        {
-            solvingAlgorithmMethod = SoleSolverAlgorithmsParallel.GetAlgorithmMethod(solvingAlgorithm);
-        }
-        catch
-        {
-            throw;
-        }
-
+        Func<Sole, int, double[]> solvingAlgorithmMethod = SoleSolverAlgorithmsParallel.GetAlgorithmMethod(solvingAlgorithm);
         Stopwatch stopwatch = new();
         double[] solutionSet;
 
@@ -129,10 +77,6 @@ public sealed class SoleSolver : ISoleSolver
         {
             stopwatch.Start();
             solutionSet = await Task.Run(() => solvingAlgorithmMethod(sole, numberOfThreads));
-        }
-        catch
-        {
-            throw;
         }
         finally
         {

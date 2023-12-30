@@ -22,10 +22,12 @@ internal static class SoleSolverAlgorithmsParallel
 
             barrier.SignalAndWait(CancellationToken.None);
 
-            while (p < sole.Dimension - 1 && cancellationToken.IsCancellationRequested is false)
+            while ((p < sole.Dimension - 1) && (cancellationToken.IsCancellationRequested is false))
             {
                 for (var r = p + 1; r < sole.Dimension; r++)
+                {
                     if (r % numberOfThreads == threadNumber)
+                    {
                         if (sole.A[r, p] is not 0)
                         {
                             double coefficient = sole.A[r, p] / sole.A[p, p];
@@ -35,19 +37,14 @@ internal static class SoleSolverAlgorithmsParallel
 
                             sole.B[r] -= sole.B[p] * coefficient;
                         }
+                    }
+                }
 
                 barrier.SignalAndWait(CancellationToken.None);
             }
         }
 
-        try
-        {
-            CheckSolvingAlgorithmArguments(sole, numberOfThreads);
-        }
-        catch
-        {
-            throw;
-        }
+        ValidateAlgorithmArguments(sole, numberOfThreads);
 
         Sole soleClone = (Sole)sole.Clone();
         int p = default;
@@ -58,8 +55,8 @@ internal static class SoleSolverAlgorithmsParallel
 
         for (var t = 0; t < numberOfThreads; t++)
         {
-            threads[t] = new Thread(() =>
-                PerformElimintaions(soleClone, ref p, numberOfThreads, barrier, cancellationTokenSource.Token))
+            threads[t] = new Thread(() => PerformElimintaions(
+                soleClone, ref p, numberOfThreads, barrier, cancellationTokenSource.Token))
             {
                 Name = t.ToString()
             };
@@ -72,8 +69,10 @@ internal static class SoleSolverAlgorithmsParallel
             int pivotRow = p;
 
             for (var r = p + 1; r < soleClone.Dimension; r++)
+            {
                 if (Math.Abs(soleClone.A[r, p]) > Math.Abs(soleClone.A[pivotRow, p]))
                     pivotRow = r;
+            }
 
             if (soleClone.A[pivotRow, p] is 0)
             {
@@ -121,7 +120,7 @@ internal static class SoleSolverAlgorithmsParallel
         return solutionSet;
     }
 
-    private static void CheckSolvingAlgorithmArguments(Sole sole, int numberOfThreads)
+    private static void ValidateAlgorithmArguments(Sole sole, int numberOfThreads)
     {
         if (sole is null)
             throw new ArgumentNullException(nameof(sole), "System of linear equations must not be null.");

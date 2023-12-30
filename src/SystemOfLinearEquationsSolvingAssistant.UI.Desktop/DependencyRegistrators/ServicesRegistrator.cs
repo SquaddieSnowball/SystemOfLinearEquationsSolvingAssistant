@@ -14,15 +14,15 @@ internal static class ServicesRegistrator
     public static void Register()
     {
         DependenciesContainer
-            .Register<ISoleSolver, SoleSolver>(DependencyObjectLifetime.Transient);
-        DependenciesContainer
-            .Register<ISoleParser, SoleFileParser>(DependencyObjectLifetime.Transient);
-        DependenciesContainer
             .Register<IEventBus, EventBus>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
             .Register<ISoleSolvingAlgorithmNameService, SoleSolvingAlgorithmNameService>(DependencyObjectLifetime.Singleton);
         DependenciesContainer
             .Register<IViewManager, WpfViewManager>(DependencyObjectLifetime.Singleton);
+        DependenciesContainer
+            .Register<ISoleParser, SoleFileParser>(DependencyObjectLifetime.Transient);
+        DependenciesContainer
+            .Register<ISoleSolver, SoleSolver>(DependencyObjectLifetime.Transient);
         DependenciesContainer
             .Register<IUserDialogService, WpfUserDialogService>(DependencyObjectLifetime.Transient);
     }

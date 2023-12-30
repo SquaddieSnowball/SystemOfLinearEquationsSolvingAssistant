@@ -19,23 +19,13 @@ internal sealed class HtmlViewVisualsParser : IHtmlViewVisualsParser
 
     public ParsingResults Parse(string viewVisualsPath)
     {
-        string viewVisuals;
-        string[] stringChunks;
-        CodeElement[] codeElements;
+        string viewVisuals = File.ReadAllText(viewVisualsPath);
 
-        try
-        {
-            viewVisuals = File.ReadAllText(viewVisualsPath);
+        string[] stringChunks = Regex.Split(viewVisuals, CodePattern, RegexOptions.Singleline)
+            .Where(s => string.IsNullOrWhiteSpace(s) is false).Select(s => s.Trim('\n', '\r')).ToArray();
 
-            stringChunks = Regex.Split(viewVisuals, CodePattern, RegexOptions.Singleline)
-                .Where(s => string.IsNullOrWhiteSpace(s) is false).Select(s => s.Trim('\n', '\r')).ToArray();
-            codeElements = Regex.Matches(viewVisuals, CodePattern, RegexOptions.Singleline)
-                .Select(m => ParseCodeElement(m)).ToArray();
-        }
-        catch
-        {
-            throw;
-        }
+        CodeElement[] codeElements = Regex.Matches(viewVisuals, CodePattern, RegexOptions.Singleline)
+            .Select(m => ParseCodeElement(m)).ToArray();
 
         return new ParsingResults(stringChunks, codeElements);
     }
@@ -45,9 +35,11 @@ internal sealed class HtmlViewVisualsParser : IHtmlViewVisualsParser
         Match[] tagMatches = Regex.Matches(codeElementMatch.Value, TagPattern).ToArray();
         Match[] compositeTagMatches = Regex.Matches(codeElementMatch.Value, CompositeTagPattern).ToArray();
 
-        if (tagMatches.Any() is false && compositeTagMatches.Any() is false)
+        if ((tagMatches.Any() is false) && (compositeTagMatches.Any() is false))
+        {
             ThrowHelper.HtmlViewVisualsParsingException("The code element does not contain valid HTML elements.",
                 index: codeElementMatch.Index);
+        }
 
         Dictionary<int, HtmlElement> indexHtmlElementPairs = new();
 
@@ -56,7 +48,6 @@ internal sealed class HtmlViewVisualsParser : IHtmlViewVisualsParser
             Tag tag = new(tagMatch.Groups["tag"].Value, tagMatch.Groups["closing"].Value.Any());
 
             SetHtmlElementAttributes(tag, tagMatch);
-
             indexHtmlElementPairs.Add(tagMatch.Index, tag);
         }
 
@@ -65,15 +56,16 @@ internal sealed class HtmlViewVisualsParser : IHtmlViewVisualsParser
             Type? compositeTagType = Assembly.GetExecutingAssembly().GetTypes()
                 .FirstOrDefault(t => t.Name.Equals(compositeTagMatch.Groups["tag"].Value, StringComparison.Ordinal));
 
-            if (compositeTagType is null || compositeTagType.IsSubclassOf(typeof(CompositeTag)) is false)
+            if ((compositeTagType is null) || (compositeTagType.IsSubclassOf(typeof(CompositeTag)) is false))
+            {
                 ThrowHelper.HtmlViewVisualsParsingException("Invalid control name.",
                     compositeTagMatch.Groups["tag"].Value, compositeTagMatch.Index);
+            }
 
             CompositeTag compositeTag =
                 (CompositeTag)Activator.CreateInstance(compositeTagType!, compositeTagMatch.Groups["tag"].Value)!;
 
             SetHtmlElementAttributes(compositeTag, compositeTagMatch);
-
             indexHtmlElementPairs.Add(compositeTagMatch.Index, compositeTag);
         }
 
@@ -91,7 +83,7 @@ internal sealed class HtmlViewVisualsParser : IHtmlViewVisualsParser
                 Regex.Match(htmlElementMatch.Groups["value"].Captures[i].Value, PropertyBindingPattern);
 
             PropertyBinding? attributePropertyBinding =
-                attributePropertyBindingMatch.Success is true ?
+                (attributePropertyBindingMatch.Success is true) ?
                 new PropertyBinding(attributePropertyBindingMatch.Groups["name"].Value) :
                 default;
 
