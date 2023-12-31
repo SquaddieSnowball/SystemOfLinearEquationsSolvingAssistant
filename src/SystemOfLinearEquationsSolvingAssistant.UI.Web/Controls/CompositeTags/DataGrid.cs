@@ -6,8 +6,15 @@ using SystemOfLinearEquationsSolvingAssistant.UI.Web.Extensions.Controls.Base.En
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Controls.CompositeTags;
 
+/// <summary>
+/// Represents a composite tag used to display data in a grid.
+/// </summary>
 internal sealed class DataGrid : CompositeTag
 {
+    /// <summary>
+    /// Initializes a new instance of <see cref="DataGrid"/> with the specified name.
+    /// </summary>
+    /// <param name="name">Tag name.</param>
     public DataGrid(string name) : base(name) { }
 
     public override string GenerateHtml(int nestingLevel)

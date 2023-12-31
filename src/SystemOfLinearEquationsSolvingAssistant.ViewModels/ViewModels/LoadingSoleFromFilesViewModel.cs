@@ -8,6 +8,9 @@ using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels.Base;
 
 namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels;
 
+/// <summary>
+/// Represents the model for the "LoadingSoleFromFilesView" view.
+/// </summary>
 public sealed class LoadingSoleFromFilesViewModel : ViewModel
 {
     private readonly ISoleParser _soleParser;
@@ -24,36 +27,54 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
 
     #region Properties
 
+    /// <summary>
+    /// Gets or sets the title of the view.
+    /// </summary>
     public string Title
     {
         get => _title;
         set => Set(ref _title, value);
     }
 
+    /// <summary>
+    /// Gets or sets the path to the file containing matrix A.
+    /// </summary>
     public string FilePathMatrixA
     {
         get => _filePathMatrixA;
         set => Set(ref _filePathMatrixA, value);
     }
 
+    /// <summary>
+    /// Gets or sets the path to the file containing vector B.
+    /// </summary>
     public string FilePathVectorB
     {
         get => _filePathVectorB;
         set => Set(ref _filePathVectorB, value);
     }
 
+    /// <summary>
+    /// Gets or sets the decimal separator.
+    /// </summary>
     public string DecimalSeparator
     {
         get => _decimalSeparator;
         set => Set(ref _decimalSeparator, value);
     }
 
+    /// <summary>
+    /// Gets or sets the variable separator.
+    /// </summary>
     public string VariableSeparator
     {
         get => _variableSeparator;
         set => Set(ref _variableSeparator, value);
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the parsing process has ended.
+    /// </summary>
     public bool IsParsingProcessEnded
     {
         get => _isParsingProcessEnded;
@@ -64,14 +85,31 @@ public sealed class LoadingSoleFromFilesViewModel : ViewModel
 
     #region Commands
 
+    /// <summary>
+    /// Opens a dialog to load matrix A from a file.
+    /// </summary>
     public RelayCommand OpenFileMatrixACommand { get; }
 
+    /// <summary>
+    /// Opens a dialog to load vector B from a file.
+    /// </summary>
     public RelayCommand OpenFileVectorBCommand { get; }
 
+    /// <summary>
+    /// Confirms the selected options and starts loading the system of linear equations.
+    /// </summary>
     public RelayCommand ConfirmLoadOptionsCommand { get; }
 
     #endregion
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="LoadingSoleFromFilesViewModel"/> with the specified services.
+    /// </summary>
+    /// <param name="soleParser"><see cref="ISoleParser"/> instance.</param>
+    /// <param name="eventBus"><see cref="IEventBus"/> instance.</param>
+    /// <param name="viewManager"><see cref="IViewManager"/> instance.</param>
+    /// <param name="userDialogService"><see cref="IUserDialogService"/> instance.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public LoadingSoleFromFilesViewModel(ISoleParser soleParser, IEventBus eventBus,
         IViewManager viewManager, IUserDialogService userDialogService)
     {

@@ -9,10 +9,18 @@ using SystemOfLinearEquationsSolvingAssistant.UI.Web.Views.Base;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Implementations;
 
+/// <summary>
+/// Provides a method used to link views.
+/// </summary>
 internal sealed class HtmlViewLinker : IHtmlViewLinker
 {
     private readonly IHtmlViewVisualsParser _htmlViewVisualsParser;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="HtmlViewLinker"/> with the specified view visuals parser.
+    /// </summary>
+    /// <param name="htmlViewVisualsParser"><see cref="IHtmlViewVisualsParser"/> instance.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public HtmlViewLinker(IHtmlViewVisualsParser htmlViewVisualsParser)
     {
         if (htmlViewVisualsParser is null)
@@ -21,6 +29,14 @@ internal sealed class HtmlViewLinker : IHtmlViewLinker
         _htmlViewVisualsParser = htmlViewVisualsParser;
     }
 
+    /// <summary>
+    /// Links the logic of the view to its visuals.
+    /// </summary>
+    /// <param name="viewLogicInstance">The logic of the view.</param>
+    /// <param name="viewVisualsPath">Path to view visuals.</param>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="HtmlViewLinkingException"></exception>
     public void Link(HtmlView viewLogicInstance, string viewVisualsPath)
     {
         if (viewLogicInstance is null)

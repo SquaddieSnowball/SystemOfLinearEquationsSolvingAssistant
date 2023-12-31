@@ -4,10 +4,18 @@ using SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Entities.EventBus.
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Implementations;
 
+/// <summary>
+/// Provides methods used to manage views.
+/// </summary>
 internal sealed class HtmlViewManager : IViewManager
 {
     private readonly IEventBus _eventBus;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="HtmlViewManager"/> with the specified even bus.
+    /// </summary>
+    /// <param name="eventBus"><see cref="IEventBus"/> instance.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public HtmlViewManager(IEventBus eventBus)
     {
         if (eventBus is null)
@@ -16,6 +24,12 @@ internal sealed class HtmlViewManager : IViewManager
         _eventBus = eventBus;
     }
 
+    /// <summary>
+    /// Shows the view.
+    /// </summary>
+    /// <param name="viewName">The name of the view to show.</param>
+    /// <param name="ownerViewName">Owner of the view.</param>
+    /// <param name="isDialogMode">Determines whether the view should be shown in dialog mode.</param>
     public void ShowView(string viewName, string? ownerViewName = null, bool isDialogMode = false)
     {
         ViewActionRequestedIntegrationEvent showViewIntegrationEvent = new(ViewActionType.Show);
@@ -28,6 +42,10 @@ internal sealed class HtmlViewManager : IViewManager
         _eventBus.Publish(showViewIntegrationEvent);
     }
 
+    /// <summary>
+    /// Closes the view.
+    /// </summary>
+    /// <param name="viewName">The name of the view to close.</param>
     public void CloseView(string viewName)
     {
         ViewActionRequestedIntegrationEvent closeViewIntegrationEvent = new(ViewActionType.Close);

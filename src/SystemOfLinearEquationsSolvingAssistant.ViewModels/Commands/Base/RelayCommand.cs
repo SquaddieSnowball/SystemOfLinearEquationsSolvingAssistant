@@ -2,6 +2,9 @@
 
 namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Commands.Base;
 
+/// <summary>
+/// Represents a relay command.
+/// </summary>
 public sealed class RelayCommand : Command, IDisposable
 {
     private readonly Type _commandType = typeof(RelayCommand);
@@ -11,6 +14,15 @@ public sealed class RelayCommand : Command, IDisposable
     private readonly IEnumerable<string>? _observableProperties;
     private bool _isDisposed;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="RelayCommand"/> with the specified 
+    /// execution delegates, observable object and observable properties.
+    /// </summary>
+    /// <param name="execute">The delegate used to execute the command.</param>
+    /// <param name="canExecute">The delegate used to determine whether the command can be executed.</param>
+    /// <param name="observableObject">An object instance for which changes to properties will be observed.</param>
+    /// <param name="observableProperties">Properties for which changes will be observed.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public RelayCommand(Action execute, Func<bool>? canExecute = default,
         INotifyPropertyChanged? observableObject = default, IEnumerable<string>? observableProperties = default)
     {
@@ -28,6 +40,15 @@ public sealed class RelayCommand : Command, IDisposable
         }
     }
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="RelayCommand"/> with the specified 
+    /// execution delegates, observable object and observable properties.
+    /// </summary>
+    /// <param name="execute">The delegate used to execute the command.</param>
+    /// <param name="canExecute">The delegate used to determine whether the command can be executed.</param>
+    /// <param name="observableObject">An object instance for which changes to properties will be observed.</param>
+    /// <param name="observableProperties">Properties for which changes will be observed.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public RelayCommand(Action<object?> execute, Func<object?, bool>? canExecute = default,
         INotifyPropertyChanged? observableObject = default, IEnumerable<string>? observableProperties = default)
     {
@@ -45,6 +66,11 @@ public sealed class RelayCommand : Command, IDisposable
         }
     }
 
+    /// <summary>
+    /// Execute the command.
+    /// </summary>
+    /// <param name="parameter">Data used by the command.</param>
+    /// <exception cref="ObjectDisposedException"></exception>
     protected override void Execute(object? parameter)
     {
         if (_isDisposed is true)
@@ -53,6 +79,12 @@ public sealed class RelayCommand : Command, IDisposable
         _execute(parameter);
     }
 
+    /// <summary>
+    /// Determines whether the command can be executed.
+    /// </summary>
+    /// <param name="parameter">Data used by the command.</param>
+    /// <returns><see langword="true"/> if this command can be executed; otherwise, <see langword="false"/>.</returns>
+    /// <exception cref="ObjectDisposedException"></exception>
     protected override bool CanExecute(object? parameter)
     {
         if (_isDisposed is true)
@@ -61,6 +93,9 @@ public sealed class RelayCommand : Command, IDisposable
         return _canExecute?.Invoke(parameter) ?? true;
     }
 
+    /// <summary>
+    /// Releases unmanaged resources used by the current object instance.
+    /// </summary>
     public void Dispose()
     {
         if (_isDisposed is false)

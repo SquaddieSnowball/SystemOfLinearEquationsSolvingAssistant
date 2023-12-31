@@ -3,11 +3,19 @@ using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Entities.Event
 
 namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Implementations;
 
+/// <summary>
+/// Represents a bus used for event-based communication.
+/// </summary>
 public sealed class EventBus : IEventBus
 {
     private readonly Dictionary<Type, Delegate?> _subscribtions = new();
     private readonly object _lock = new();
 
+    /// <summary>
+    /// Subscribes to the event.
+    /// </summary>
+    /// <typeparam name="T">Event type.</typeparam>
+    /// <param name="integrationEventHandler">Event handler.</param>
     public void Subscribe<T>(Action<T> integrationEventHandler) where T : IntegrationEvent
     {
         Type integrationEventType = typeof(T);
@@ -21,6 +29,11 @@ public sealed class EventBus : IEventBus
         }
     }
 
+    /// <summary>
+    /// Unsubscribes from the event.
+    /// </summary>
+    /// <typeparam name="T">Event type.</typeparam>
+    /// <param name="integrationEventHandler">Event handler.</param>
     public void Unsubscribe<T>(Action<T> integrationEventHandler) where T : IntegrationEvent
     {
         Type integrationEventType = typeof(T);
@@ -34,6 +47,11 @@ public sealed class EventBus : IEventBus
         }
     }
 
+    /// <summary>
+    /// Publishes the event.
+    /// </summary>
+    /// <param name="integrationEvent">Event to publish.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public void Publish(IntegrationEvent integrationEvent)
     {
         if (integrationEvent is null)

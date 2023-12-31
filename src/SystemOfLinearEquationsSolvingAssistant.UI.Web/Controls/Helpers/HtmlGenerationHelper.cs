@@ -3,8 +3,18 @@ using SystemOfLinearEquationsSolvingAssistant.UI.Web.Extensions.Controls.Base.En
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Controls.Helpers;
 
+/// <summary>
+/// Provides methods used as helpers when generating HTML markup.
+/// </summary>
 internal static class HtmlGenerationHelper
 {
+    /// <summary>
+    /// Divides HTML attributes into specified categories.
+    /// </summary>
+    /// <param name="attributes">HTML attributes for categorization.</param>
+    /// <param name="categories">The categories to divide the HTML attributes into.</param>
+    /// <returns>A dictionary containing HTML attributes divided into categories.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public static Dictionary<string, IEnumerable<HtmlAttribute>> DivideByCategory(
         this IEnumerable<HtmlAttribute> attributes, IEnumerable<string>? categories = default)
     {
@@ -39,6 +49,15 @@ internal static class HtmlGenerationHelper
         return attributesByCategory;
     }
 
+    /// <summary>
+    /// Adds HTML attributes to <see cref="StringBuilder"/> containing HTML markup.
+    /// </summary>
+    /// <param name="stringBuilder"><see cref="StringBuilder"/> to add HTML attributes.</param>
+    /// <param name="attributes">HTML attributes to add.</param>
+    /// <param name="attributesCategoryName">The category name to remove from the attribute names.</param>
+    /// <param name="attributesToIgnore">Attributes to ignore.</param>
+    /// <returns>The current instance of <see cref="StringBuilder"/>.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public static StringBuilder AppendHtmlAttributes(this StringBuilder stringBuilder, IEnumerable<HtmlAttribute> attributes,
         string? attributesCategoryName = default, IEnumerable<HtmlAttribute?>? attributesToIgnore = default)
     {

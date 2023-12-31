@@ -9,8 +9,14 @@ using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Abstractions;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.DependencyRegistrators;
 
+/// <summary>
+/// Provides the method used to register services.
+/// </summary>
 internal static class ServicesRegistrator
 {
+    /// <summary>
+    /// Registers services in a dependency container.
+    /// </summary>
     public static void Register()
     {
         DependenciesContainer

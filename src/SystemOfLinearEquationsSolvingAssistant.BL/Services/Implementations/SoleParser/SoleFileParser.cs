@@ -5,10 +5,22 @@ using SystemOfLinearEquationsSolvingAssistant.BL.Services.Entities.SoleParser;
 
 namespace SystemOfLinearEquationsSolvingAssistant.BL.Services.Implementations.SoleParser;
 
+/// <summary>
+/// Provides methods used to parse systems of linear equations from files.
+/// </summary>
 public sealed class SoleFileParser : ISoleParser
 {
     void ISoleParser.Initialize(string initializationString) { }
 
+    /// <summary>
+    /// Parses a system of linear equations from files.
+    /// </summary>
+    /// <param name="pathA">Path to the file containing matrix A of the system of linear equations.</param>
+    /// <param name="pathB">Path to the file containing vector B of the system of linear equations.</param>
+    /// <param name="parsingTemplate">A template that will be used during the parsing process.</param>
+    /// <returns>A new instance of the <see cref="Sole"/>.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public Sole Parse(string pathA, string pathB, SoleParsingTemplate parsingTemplate)
     {
         if (string.IsNullOrEmpty(pathA) is true)
@@ -47,6 +59,15 @@ public sealed class SoleFileParser : ISoleParser
         return new Sole(a, b);
     }
 
+    /// <summary>
+    /// Asynchronously parses a system of linear equations from files.
+    /// </summary>
+    /// <param name="pathA">Path to the file containing matrix A of the system of linear equations.</param>
+    /// <param name="pathB">Path to the file containing vector B of the system of linear equations.</param>
+    /// <param name="parsingTemplate">A template that will be used during the parsing process.</param>
+    /// <returns>A task representing an asynchronous operation that wraps a new <see cref="Sole"/> instance.</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public async Task<Sole> ParseAsync(string pathA, string pathB, SoleParsingTemplate parsingTemplate)
     {
         if (string.IsNullOrEmpty(pathA) is true)

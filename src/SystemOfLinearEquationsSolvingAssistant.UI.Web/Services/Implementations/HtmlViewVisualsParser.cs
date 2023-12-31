@@ -10,6 +10,9 @@ using SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Entities.HtmlViewV
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Implementations;
 
+/// <summary>
+/// Provides a method used to parse the view visuals.
+/// </summary>
 internal sealed class HtmlViewVisualsParser : IHtmlViewVisualsParser
 {
     private const string CodePattern = @"(?<indent>[ \t]*)<!--@.+?@-->";
@@ -17,6 +20,11 @@ internal sealed class HtmlViewVisualsParser : IHtmlViewVisualsParser
     private const string CompositeTagPattern = @"&\s*(?<tag>\w+)(?<attribute>(\s+(?<parameter>\S+)=""(?<value>[^""]*)""))*\s*&";
     private const string PropertyBindingPattern = @"^\$\{(?<name>\w+)\}$";
 
+    /// <summary>
+    /// Parses the view located at the specified path.
+    /// </summary>
+    /// <param name="viewVisualsPath">Path to view visuals.</param>
+    /// <returns>A new instance of <see cref="ParsingResults"/>.</returns>
     public ParsingResults Parse(string viewVisualsPath)
     {
         string viewVisuals = File.ReadAllText(viewVisualsPath);

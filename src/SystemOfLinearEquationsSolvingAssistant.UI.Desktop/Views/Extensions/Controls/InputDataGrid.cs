@@ -3,6 +3,9 @@ using System.Windows.Controls;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views.Extensions.Controls;
 
+/// <summary>
+/// Represents an input data grid.
+/// </summary>
 internal sealed class InputDataGrid : DataGrid
 {
     protected override void OnLoadingRow(DataGridRowEventArgs e)

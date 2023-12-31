@@ -3,8 +3,19 @@ using SystemOfLinearEquationsSolvingAssistant.BL.Services.Entities.SoleParser;
 
 namespace SystemOfLinearEquationsSolvingAssistant.BL.Helpers.SoleParser;
 
+/// <summary>
+/// Provides helper methods used to parse systems of linear equations.
+/// </summary>
 internal static class SoleParserHelper
 {
+    /// <summary>
+    /// Parses matrix A of a system of linear equations from the text.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="parsingTemplate">A template that will be used during the parsing process.</param>
+    /// <returns>An array containing matrix A of a system of linear equations.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public static double[,] ParseFromTextA(string text, SoleParsingTemplate parsingTemplate)
     {
         if (text is null)
@@ -43,6 +54,14 @@ internal static class SoleParserHelper
         return a;
     }
 
+    /// <summary>
+    /// Parses vector B of a system of linear equations from the text.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="parsingTemplate">A template that will be used during the parsing process.</param>
+    /// <returns>An array containing vector B of a system of linear equations.</returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public static double[] ParseFromTextB(string text, SoleParsingTemplate parsingTemplate)
     {
         if (text is null)

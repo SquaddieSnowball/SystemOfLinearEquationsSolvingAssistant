@@ -10,6 +10,9 @@ using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels.Base;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Services.Implementations;
 
+/// <summary>
+/// Provides methods used to manage the HTTP server.
+/// </summary>
 internal sealed class HttpServerManager : IHttpServerManager
 {
     private const string ViewsNamespace = "SystemOfLinearEquationsSolvingAssistant.UI.Web.Views";
@@ -24,6 +27,12 @@ internal sealed class HttpServerManager : IHttpServerManager
     private readonly List<HtmlView> _views = new();
     private HtmlView? _defaultView;
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="HttpServerManager"/> with the specified HTTP server and HTML view linker.
+    /// </summary>
+    /// <param name="httpServer"><see cref="HttpServer"/> instance.</param>
+    /// <param name="htmlViewLinker"><see cref="IHtmlViewLinker"/> instance.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public HttpServerManager(HttpServer httpServer, IHtmlViewLinker htmlViewLinker)
     {
         if (httpServer is null)
@@ -38,6 +47,11 @@ internal sealed class HttpServerManager : IHttpServerManager
         ConfigureEndPoints();
     }
 
+    /// <summary>
+    /// Sets the default view for the server.
+    /// </summary>
+    /// <typeparam name="TView">View type.</typeparam>
+    /// <exception cref="ArgumentException"></exception>
     public void SetDefaultView<TView>()
     {
         _defaultView = _views.FirstOrDefault(v => v.GetType().Equals(typeof(TView)) is true) ??
@@ -47,8 +61,14 @@ internal sealed class HttpServerManager : IHttpServerManager
         ConfigurePage(_defaultView, "/");
     }
 
+    /// <summary>
+    /// Starts the server.
+    /// </summary>
     public void StartServer() => _httpServer.Start();
 
+    /// <summary>
+    /// Stops the server.
+    /// </summary>
     public void StopServer() => _httpServer.Stop();
 
     private void ConfigureViews()

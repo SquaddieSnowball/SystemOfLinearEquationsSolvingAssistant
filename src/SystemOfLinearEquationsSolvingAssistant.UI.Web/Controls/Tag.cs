@@ -5,10 +5,21 @@ using SystemOfLinearEquationsSolvingAssistant.UI.Web.Extensions.Controls.Base.En
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Controls;
 
+/// <summary>
+/// Represents a tag.
+/// </summary>
 internal sealed class Tag : HtmlElement
 {
+    /// <summary>
+    /// Gets a value indicating whether the tag is closed.
+    /// </summary>
     public bool IsClosed { get; }
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="Tag"/> with the specified name and a value indicating whether the tag is closed.
+    /// </summary>
+    /// <param name="name">Tag name.</param>
+    /// <param name="isClosed">A value indicating whether the tag is closed.</param>
     public Tag(string name, bool isClosed = true) : base(name) => IsClosed = isClosed;
 
     public override string GenerateHtml(int nestingLevel)

@@ -6,11 +6,21 @@ using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels.Base;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Services.Implementations;
 
+/// <summary>
+/// Provides methods used to manage views.
+/// </summary>
 internal sealed class WpfViewManager : IViewManager
 {
     private const string ViewsNamespace = "SystemOfLinearEquationsSolvingAssistant.UI.Desktop.Views";
     private const string ViewModelsNamespace = "SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels";
 
+    /// <summary>
+    /// Shows the view.
+    /// </summary>
+    /// <param name="viewName">The name of the view to show.</param>
+    /// <param name="ownerViewName">Owner of the view.</param>
+    /// <param name="isDialogMode">Determines whether the view should be shown in dialog mode.</param>
+    /// <exception cref="ArgumentException"></exception>
     public void ShowView(string viewName, string? ownerViewName = default, bool isDialogMode = false)
     {
         if (string.IsNullOrEmpty(viewName) is true)
@@ -42,6 +52,11 @@ internal sealed class WpfViewManager : IViewManager
             _ = view.ShowDialog();
     }
 
+    /// <summary>
+    /// Closes the view.
+    /// </summary>
+    /// <param name="viewName">The name of the view to close.</param>
+    /// <exception cref="ArgumentException"></exception>
     public void CloseView(string viewName)
     {
         if (string.IsNullOrEmpty(viewName) is true)

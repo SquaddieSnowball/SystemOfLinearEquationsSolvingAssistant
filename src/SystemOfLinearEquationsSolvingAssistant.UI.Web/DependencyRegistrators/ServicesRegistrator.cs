@@ -17,8 +17,14 @@ using SimpleTcpServer.Extensions.Options;
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.DependencyRegistrators;
 
+/// <summary>
+/// Provides the method used to register services.
+/// </summary>
 internal static class ServicesRegistrator
 {
+    /// <summary>
+    /// Registers services in a dependency container.
+    /// </summary>
     public static void Register()
     {
         DependenciesContainer

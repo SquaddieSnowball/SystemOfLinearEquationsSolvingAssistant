@@ -4,8 +4,17 @@ using SystemOfLinearEquationsSolvingAssistant.BL.Services.Entities.SoleSolver;
 
 namespace SystemOfLinearEquationsSolvingAssistant.BL.Helpers.SoleSolver;
 
+/// <summary>
+/// Provides methods used for parallel solving of the systems of linear equations.
+/// </summary>
 internal static class SoleSolverAlgorithmsParallel
 {
+    /// <summary>
+    /// Gets a delegate containing the specified algorithm method.
+    /// </summary>
+    /// <param name="solvingAlgorithm">Algorithm for obtaining a delegate containing a method.</param>
+    /// <returns>A delegate containing the specified algorithm method.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     public static Func<Sole, int, double[]> GetAlgorithmMethod(SoleSolvingAlgorithmParallel solvingAlgorithm) =>
         solvingAlgorithm switch
         {

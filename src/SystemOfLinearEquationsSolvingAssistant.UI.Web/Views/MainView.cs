@@ -11,6 +11,9 @@ using SystemOfLinearEquationsSolvingAssistant.ViewModels.Services.Entities.Event
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Views;
 
+/// <summary>
+/// Represents the "Main" view of the application.
+/// </summary>
 internal sealed class MainView : HtmlView
 {
     private readonly IEventBus _eventBus;
@@ -18,6 +21,12 @@ internal sealed class MainView : HtmlView
 
     public override string PagePath => "index.html";
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="MainView"/> with the specified services.
+    /// </summary>
+    /// <param name="eventBus"><see cref="IEventBus"/> instance.</param>
+    /// <param name="soleSolvingAlgorithmNameService"><see cref="ISoleSolvingAlgorithmNameService"/> instance.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public MainView(IEventBus eventBus, ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService)
     {
         if (soleSolvingAlgorithmNameService is null)

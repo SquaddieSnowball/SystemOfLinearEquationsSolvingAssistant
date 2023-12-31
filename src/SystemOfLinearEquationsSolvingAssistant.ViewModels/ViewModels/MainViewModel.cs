@@ -10,6 +10,9 @@ using SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels.Base;
 
 namespace SystemOfLinearEquationsSolvingAssistant.ViewModels.ViewModels;
 
+/// <summary>
+/// Represents the model for the "Main" view.
+/// </summary>
 public sealed class MainViewModel : ViewModel
 {
     private const int MinDataDimension = 1;
@@ -39,72 +42,108 @@ public sealed class MainViewModel : ViewModel
 
     #region Properties
 
+    /// <summary>
+    /// Gets or sets the title of the view.
+    /// </summary>
     public string Title
     {
         get => _title;
         set => Set(ref _title, value);
     }
 
+    /// <summary>
+    /// Gets or sets the data table with matrix A.
+    /// </summary>
     public DataTable DataTableMatrixA
     {
         get => _dataTableMatrixA;
         set => Set(ref _dataTableMatrixA, value);
     }
 
+    /// <summary>
+    /// Gets or sets the data table with vector B.
+    /// </summary>
     public DataTable DataTableVectorB
     {
         get => _dataTableVectorB;
         set => Set(ref _dataTableVectorB, value);
     }
 
+    /// <summary>
+    /// Gets or sets the solution set.
+    /// </summary>
     public string SolutionSet
     {
         get => _solutionSet;
         set => Set(ref _solutionSet, value);
     }
 
+    /// <summary>
+    /// Gets or sets the serial algorithm names.
+    /// </summary>
     public string[] AlgorithmNamesSerial
     {
         get => _algorithmNamesSerial;
         set => Set(ref _algorithmNamesSerial, value);
     }
 
+    /// <summary>
+    /// Gets or sets the parallel algorithm names.
+    /// </summary>
     public string[] AlgorithmNamesParallel
     {
         get => _algorithmNamesParallel;
         set => Set(ref _algorithmNamesParallel, value);
     }
 
+    /// <summary>
+    /// Gets or sets the selected serial algorithm name.
+    /// </summary>
     public string AlgorithmNamesSerialSelectedItem
     {
         get => _algorithmNamesSerialSelectedItem;
         set => Set(ref _algorithmNamesSerialSelectedItem, value);
     }
 
+    /// <summary>
+    /// Gets or sets the selected parallel algorithm name.
+    /// </summary>
     public string AlgorithmNamesParallelSelectedItem
     {
         get => _algorithmNamesParallelSelectedItem;
         set => Set(ref _algorithmNamesParallelSelectedItem, value);
     }
 
+    /// <summary>
+    /// Gets or sets the number of threads.
+    /// </summary>
     public int ThreadsNumParallel
     {
         get => _threadsNumParallel;
         set => Set(ref _threadsNumParallel, value);
     }
 
+    /// <summary>
+    /// Gets or sets the elapsed time during a serial solution.
+    /// </summary>
     public TimeSpan ElapsedTimeSerial
     {
         get => _elapsedTimeSerial;
         set => Set(ref _elapsedTimeSerial, value);
     }
 
+    /// <summary>
+    /// Gets or sets the elapsed time during a parallel solution.
+    /// </summary>
     public TimeSpan ElapsedTimeParallel
     {
         get => _elapsedTimeParallel;
         set => Set(ref _elapsedTimeParallel, value);
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the solving process has ended.
+    /// </summary>
     public bool IsSolvingProcessEnded
     {
         get => _isSolvingProcessEnded;
@@ -115,24 +154,57 @@ public sealed class MainViewModel : ViewModel
 
     #region Commands
 
+    /// <summary>
+    /// Adds a data dimension.
+    /// </summary>
     public RelayCommandGeneric<int> AddDataDimensionsCommand { get; }
 
+    /// <summary>
+    /// Removes a data dimension.
+    /// </summary>
     public RelayCommandGeneric<int> RemoveDataDimensionsCommand { get; }
 
+    /// <summary>
+    /// Resets data.
+    /// </summary>
     public RelayCommandGeneric<int> ResetDataCommand { get; }
 
+    /// <summary>
+    /// Opens a view for loading system of linear equations from files.
+    /// </summary>
     public RelayCommand LoadFromFilesCommand { get; }
 
+    /// <summary>
+    /// Adds a thread.
+    /// </summary>
     public RelayCommandGeneric<int> AddThreadsParallelCommand { get; }
 
+    /// <summary>
+    /// Removes a thread.
+    /// </summary>
     public RelayCommandGeneric<int> RemoveThreadsParallelCommand { get; }
 
+    /// <summary>
+    /// Solves a system of linear equations serially.
+    /// </summary>
     public RelayCommandGeneric<string> SolveSerialCommand { get; }
 
+    /// <summary>
+    /// Solves a system of linear equations parallelly.
+    /// </summary>
     public RelayCommandGeneric<string> SolveParallelCommand { get; }
 
     #endregion
 
+    /// <summary>
+    /// Initializes a new instance of <see cref="MainViewModel"/> with the specified services.
+    /// </summary>
+    /// <param name="soleSolver"><see cref="ISoleSolver"/> instance.</param>
+    /// <param name="eventBus"><see cref="IEventBus"/> instance.</param>
+    /// <param name="soleSolvingAlgorithmNameService"><see cref="ISoleSolvingAlgorithmNameService"/> instance.</param>
+    /// <param name="viewManager"><see cref="IViewManager"/> instance.</param>
+    /// <param name="userDialogService"><see cref="IUserDialogService"/> instance.</param>
+    /// <exception cref="ArgumentNullException"></exception>
     public MainViewModel(ISoleSolver soleSolver, IEventBus eventBus,
         ISoleSolvingAlgorithmNameService soleSolvingAlgorithmNameService,
         IViewManager viewManager, IUserDialogService userDialogService)

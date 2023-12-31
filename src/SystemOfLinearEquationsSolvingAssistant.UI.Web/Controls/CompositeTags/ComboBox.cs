@@ -5,8 +5,15 @@ using SystemOfLinearEquationsSolvingAssistant.UI.Web.Extensions.Controls.Base.En
 
 namespace SystemOfLinearEquationsSolvingAssistant.UI.Web.Controls.CompositeTags;
 
+/// <summary>
+/// Represents a composite tag used to select an element from a predefined list.
+/// </summary>
 internal sealed class ComboBox : CompositeTag
 {
+    /// <summary>
+    /// Initializes a new instance of <see cref="ComboBox"/> with the specified name.
+    /// </summary>
+    /// <param name="name">Tag name.</param>
     public ComboBox(string name) : base(name) { }
 
     public override string GenerateHtml(int nestingLevel)
